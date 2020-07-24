@@ -1,4 +1,4 @@
-### [gh-pages link](https://daniilmaikovskiy.github.io/blog-platform "gh-pages link")
+### [gh-pages link](https://daniilmaikovskiy.github.io/blog-platform)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
