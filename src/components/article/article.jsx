@@ -1,15 +1,17 @@
 import React from 'react';
-import { wrapper, main, author } from './article.module.scss';
+import { enUS } from 'date-fns/locale';
+import { formatWithOptions } from 'date-fns/fp';
+import { wrapper, main, authorBlock, author, date } from './article.module.scss';
+
+const formatDate = (dateObj) => formatWithOptions({ locale: enUS }, 'MMMM d, yyyy')(dateObj);
 
 const Article = () => {
-  const date = new Date();
-
   return (
     <article className={wrapper}>
       <section className={main} />
-      <section className={author}>
-        <span>John Doe</span>
-        <span>{date.toDateString()}</span>
+      <section className={authorBlock}>
+        <span className={author}>John Doe</span>
+        <span className={date}>{formatDate(new Date())}</span>
       </section>
     </article>
   );
