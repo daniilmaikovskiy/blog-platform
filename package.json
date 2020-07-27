@@ -70,6 +70,10 @@
     "*.js": [
       "npm run lint:fix",
       "npm run format"
+    ],
+    "*.jsx": [
+      "npm run lint:fix",
+      "npm run format"
     ]
   }
 }
