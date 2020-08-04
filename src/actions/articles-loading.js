@@ -8,11 +8,11 @@ const articlesIsReceived = (articlesCount, articles) => {
   };
 };
 
-const articlesCountLoading = (realworldService) => {
+const articlesLoading = (realworldService) => {
   return (dispatch) =>
     realworldService
       .getArticles()
       .then(({ articlesCount, articles }) => dispatch(articlesIsReceived(articlesCount, articles)));
 };
 
-export default articlesCountLoading;
+export default articlesLoading;
