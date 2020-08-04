@@ -1,0 +1,7 @@
+export const NUMBER_OF_ARTICLES_ON_PAGE = 5;
+
+const GLOBAL_SETTINGS = {
+  NUMBER_OF_ARTICLES_ON_PAGE,
+};
+
+export default GLOBAL_SETTINGS;

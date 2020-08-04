@@ -18,24 +18,16 @@ import {
   description,
   tagBlock,
   authorBlockText,
-  extendedWrapper,
   firstVisible,
-  extended,
-} from './article.module.scss';
+} from './article-item.module.scss';
 import likeheartImg from '../../img/likeheart.svg';
 import avatarImg from '../../img/avatar.png';
 
 const formatDate = (dateObj) => formatWithOptions({ locale: enUS }, 'MMMM d, yyyy')(dateObj);
 
-const Article = ({ id, isExtended }) => {
-  const mainTagClasses = [wrapper];
-
-  if (isExtended) {
-    mainTagClasses.push(extendedWrapper);
-  }
-
+const ArticleItem = ({ id }) => {
   return (
-    <article className={mainTagClasses.join(' ')}>
+    <article className={wrapper}>
       <section className={firstVisible}>
         <section className={main}>
           <div className={titleBlock}>
@@ -65,25 +57,12 @@ const Article = ({ id, isExtended }) => {
           <img src={avatarImg} alt="" width="46" height="46" />
         </section>
       </section>
-      <section className={extended}>
-        Est Ampyciden pater patent Amor saxa inpiger Lorem markdownum Stygias neque is referam fudi,
-        breve per. Et Achaica tamen: nescia ista occupat, illum se ad potest humum et. Qua deos has
-        fontibus Recens nec ferro responsaque dedere armenti opes momorderat pisce, vitataque et
-        fugisse. Et iamque incipiens, qua huius suo omnes ne pendentia citus pedum. Quamvis pronuba
-        Ulli labore facta. Io cervis non nosterque nullae, vides: aethere Delphice subit, tamen
-        Romane ob cubilia Rhodopen calentes librata! Nihil populorum flava, inrita? Sit hic nunc,
-        hoc formae Esse illo? Umeris eram similis, crudelem de est relicto ingemuit finiat Pelia uno
-        cernunt Venus draconem, hic, Methymnaeae. 1. Clamoribus haesit tenentem iube Haec munera 2.
-        Vincla venae 3. Paris includere etiam tamen 4. Superi te putria imagine Deianira 5. Tremore
-        hoste Esse sed perstat capillis siqua
-      </section>
     </article>
   );
 };
 
-Article.propTypes = {
+ArticleItem.propTypes = {
   id: PropTypes.string.isRequired,
-  isExtended: PropTypes.bool.isRequired,
 };
 
-export default Article;
+export default ArticleItem;

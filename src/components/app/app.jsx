@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { wrapper } from './app.module.scss';
 import Header from '../header';
 import Articles from '../articles';
-import Article from '../article';
+import ArticlePage from '../article-page';
 
 const App = () => {
   return (
@@ -17,7 +17,7 @@ const App = () => {
           render={({ match }) => {
             const { id } = match.params;
 
-            return <Article id={id} isExtended />;
+            return <ArticlePage id={id} />;
           }}
         />
       </div>

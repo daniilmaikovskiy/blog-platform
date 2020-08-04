@@ -14,24 +14,6 @@
   padding: 16px 0;
 }
 
-.extendedWrapper {
-  min-height: 800px;
-  margin-top: 24px;
-  margin-bottom: 70px;
-}
-
-.extended {
-  display: none;
-  font-size: 20px;
-  line-height: 28px;
-  color: rgba(0, 0, 0, 0.75);
-}
-
-.extendedWrapper .extended {
-  display: block;
-  align-self: flex-start;
-}
-
 .main {
   width: 70%;
   height: auto;
@@ -71,9 +53,10 @@
 .title {
   font-size: 20px;
   line-height: 28px;
-  color: #1890FF;
+  color: #1890ff;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     text-decoration: underline;
   }
 }
