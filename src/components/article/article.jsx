@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { enUS } from 'date-fns/locale';
 import { formatWithOptions } from 'date-fns/fp';
 import { Link } from 'react-router-dom';
 import { Tag } from 'antd';
+import CustomPropTypes from '../../custom-prop-types';
 import {
   wrapper,
   main,
@@ -19,50 +19,54 @@ import {
   tagBlock,
   authorBlockText,
   firstVisible,
-} from './article-item.module.scss';
+} from './article.module.scss';
 import likeheartImg from '../../img/likeheart.svg';
 import avatarImg from '../../img/avatar.png';
 
 const formatDate = (dateObj) => formatWithOptions({ locale: enUS }, 'MMMM d, yyyy')(dateObj);
 
-const ArticleItem = ({ id }) => {
+const Article = ({ data }) => {
+  const tags = data.tagList.map((el) => (
+    <Tag key={el} className={tag}>
+      {el}
+    </Tag>
+  ));
+
   return (
     <article className={wrapper}>
       <section className={firstVisible}>
         <section className={main}>
           <div className={titleBlock}>
-            <Link className={title} to={`/articles/${id}`}>
-              Some article title
+            <Link className={title} to={`/articles/${data.slug}`}>
+              {data.title}
             </Link>
             <div className={likeBlock}>
               <img src={likeheartImg} alt="like" />
-              <span className={likeNumber}>12</span>
+              <span className={likeNumber}>{data.favoritesCount}</span>
             </div>
           </div>
-          <div className={tagBlock}>
-            <Tag className={tag}>Tag1</Tag>
-            <Tag className={tag}>SomeTag</Tag>
-          </div>
-          <div className={description}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </div>
+          <div className={tagBlock}>{tags}</div>
+          <div className={description}>{data.description}</div>
         </section>
         <section className={authorBlock}>
           <div className={authorBlockText}>
-            <span className={author}>John Doe</span>
-            <span className={date}>{formatDate(new Date())}</span>
+            <span className={author}>{data.author.username}</span>
+            <span className={date}>{formatDate(new Date(data.createdAt))}</span>
           </div>
-          <img src={avatarImg} alt="" width="46" height="46" />
+          <img
+            src={data.author.image ? data.author.image : avatarImg}
+            alt=""
+            width="46"
+            height="46"
+          />
         </section>
       </section>
     </article>
   );
 };
 
-ArticleItem.propTypes = {
-  id: PropTypes.string.isRequired,
+Article.propTypes = {
+  data: CustomPropTypes.articleType.isRequired,
 };
 
-export default ArticleItem;
+export default Article;
