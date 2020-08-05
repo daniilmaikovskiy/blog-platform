@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { createElement, useContext, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { enUS } from 'date-fns/locale';
 import { formatWithOptions } from 'date-fns/fp';
 import { Link } from 'react-router-dom';
 import { Tag } from 'antd';
+import marksy from 'marksy';
 import {
   wrapper,
   main,
@@ -32,6 +33,8 @@ const formatDate = (dateObj) => formatWithOptions({ locale: enUS }, 'MMMM d, yyy
 const ArticlePage = ({ slug }) => {
   const dispatch = useDispatch();
   const realworldService = useContext(RealworldServiceContext);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const compile = useCallback(marksy({ createElement }), []);
 
   useEffect(() => {
     dispatch(actions.articlePageLoading(realworldService, slug));
@@ -79,7 +82,7 @@ const ArticlePage = ({ slug }) => {
           />
         </section>
       </section>
-      <section className={body}>{data.body}</section>
+      <section className={body}>{compile(data.body).tree}</section>
     </article>
   );
 };
