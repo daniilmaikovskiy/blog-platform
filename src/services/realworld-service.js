@@ -7,4 +7,7 @@ export default class RealworldService {
     fetch(
       `${this.url}/articles?limit=${ARTICLES_NUMBER}&offset=${ARTICLES_NUMBER * page - 1}`
     ).then((response) => response.json());
+
+  getSingleArticle = (slug) =>
+    fetch(`${this.url}/articles/${slug}`).then((response) => response.json());
 }

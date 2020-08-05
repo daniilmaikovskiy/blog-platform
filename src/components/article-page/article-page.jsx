@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { enUS } from 'date-fns/locale';
 import { formatWithOptions } from 'date-fns/fp';
@@ -23,59 +24,68 @@ import {
 } from './article-page.module.scss';
 import likeheartImg from '../../img/likeheart.svg';
 import avatarImg from '../../img/avatar.png';
+import RealworldServiceContext from '../realworld-service-context';
+import actions from '../../actions';
 
 const formatDate = (dateObj) => formatWithOptions({ locale: enUS }, 'MMMM d, yyyy')(dateObj);
 
-const ArticlePage = ({ id }) => {
+const ArticlePage = ({ slug }) => {
+  const dispatch = useDispatch();
+  const realworldService = useContext(RealworldServiceContext);
+
+  useEffect(() => {
+    dispatch(actions.articlePageLoading(realworldService, slug));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const data = useSelector(({ currentArticlePage }) => currentArticlePage);
+
+  if (data === null) {
+    return null;
+  }
+
+  const tags = data.tagList.map((el) => (
+    <Tag key={el} className={tag}>
+      {el}
+    </Tag>
+  ));
+
   return (
     <article className={wrapper}>
       <section className={firstVisible}>
         <section className={main}>
           <div className={titleBlock}>
-            <Link className={title} to={`/articles/${id}`}>
-              Some article title
+            <Link className={title} to={`/articles/${data.slug}`}>
+              {data.title}
             </Link>
             <div className={likeBlock}>
               <img src={likeheartImg} alt="like" />
-              <span className={likeNumber}>12</span>
+              <span className={likeNumber}>{data.favoritesCount}</span>
             </div>
           </div>
-          <div className={tagBlock}>
-            <Tag className={tag}>Tag1</Tag>
-            <Tag className={tag}>SomeTag</Tag>
-          </div>
-          <div className={description}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </div>
+          <div className={tagBlock}>{tags}</div>
+          <div className={description}>{data.description}</div>
         </section>
         <section className={authorBlock}>
           <div className={authorBlockText}>
-            <span className={author}>John Doe</span>
-            <span className={date}>{formatDate(new Date())}</span>
+            <span className={author}>{data.author.username}</span>
+            <span className={date}>{formatDate(new Date(data.createdAt))}</span>
           </div>
-          <img src={avatarImg} alt="" width="46" height="46" />
+          <img
+            src={data.author.image ? data.author.image : avatarImg}
+            alt=""
+            width="46"
+            height="46"
+          />
         </section>
       </section>
-      <section className={body}>
-        Est Ampyciden pater patent Amor saxa inpiger Lorem markdownum Stygias neque is referam fudi,
-        breve per. Et Achaica tamen: nescia ista occupat, illum se ad potest humum et. Qua deos has
-        fontibus Recens nec ferro responsaque dedere armenti opes momorderat pisce, vitataque et
-        fugisse. Et iamque incipiens, qua huius suo omnes ne pendentia citus pedum. Quamvis pronuba
-        Ulli labore facta. Io cervis non nosterque nullae, vides: aethere Delphice subit, tamen
-        Romane ob cubilia Rhodopen calentes librata! Nihil populorum flava, inrita? Sit hic nunc,
-        hoc formae Esse illo? Umeris eram similis, crudelem de est relicto ingemuit finiat Pelia uno
-        cernunt Venus draconem, hic, Methymnaeae. 1. Clamoribus haesit tenentem iube Haec munera 2.
-        Vincla venae 3. Paris includere etiam tamen 4. Superi te putria imagine Deianira 5. Tremore
-        hoste Esse sed perstat capillis siqua
-      </section>
+      <section className={body}>{data.body}</section>
     </article>
   );
 };
 
 ArticlePage.propTypes = {
-  id: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
 };
 
 export default ArticlePage;

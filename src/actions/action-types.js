@@ -1,7 +1,9 @@
 export const ARTICLES_IS_RECEIVED = 'ARTICLES_IS_RECEIVED';
+export const ARTICLE_PAGE_IS_RECEIVED = 'ARTICLE_PAGE_IS_RECEIVED';
 
 const ActionTypes = {
   ARTICLES_IS_RECEIVED,
+  ARTICLE_PAGE_IS_RECEIVED,
 };
 
 export default ActionTypes;

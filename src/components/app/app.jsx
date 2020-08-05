@@ -13,12 +13,8 @@ const App = () => {
         <Route path="/" exact component={Articles} />
         <Route path="/articles/" exact component={Articles} />
         <Route
-          path="/articles/:id"
-          render={({ match }) => {
-            const { id } = match.params;
-
-            return <ArticlePage id={id} />;
-          }}
+          path="/articles/:slug"
+          render={({ match }) => <ArticlePage slug={match.params.slug} />}
         />
       </div>
     </Router>
