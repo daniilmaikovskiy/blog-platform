@@ -5,6 +5,8 @@ import RealworldServiceContext from '../realworld-service-context';
 import actions from '../../actions';
 import selectors from '../../selectors';
 import PageController from '../page-controller';
+import ErrorAlert from '../error-alert';
+import Spinner from '../spinner';
 
 const Articles = () => {
   const dispatch = useDispatch();
@@ -18,6 +20,19 @@ const Articles = () => {
   const articleArray = useSelector(selectors.articleArray);
   const totalPages = useSelector(selectors.totalPages);
   const currentPage = useSelector(({ page }) => page);
+  const error = useSelector(({ articlesLoadingError }) => articlesLoadingError);
+  const errorMessage = useSelector(
+    ({ articlesLoadingErrorMessage }) => articlesLoadingErrorMessage
+  );
+  const loading = useSelector(({ articlesOnLoading }) => articlesOnLoading);
+
+  if (error) {
+    return <ErrorAlert description={errorMessage} />;
+  }
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <>

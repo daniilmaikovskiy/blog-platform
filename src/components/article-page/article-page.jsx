@@ -27,6 +27,8 @@ import likeheartImg from '../../img/likeheart.svg';
 import avatarImg from '../../img/avatar.png';
 import RealworldServiceContext from '../realworld-service-context';
 import actions from '../../actions';
+import ErrorAlert from '../error-alert';
+import Spinner from '../spinner';
 
 const formatDate = (dateObj) => formatWithOptions({ locale: enUS }, 'MMMM d, yyyy')(dateObj);
 
@@ -42,9 +44,22 @@ const ArticlePage = ({ slug }) => {
   }, []);
 
   const data = useSelector(({ currentArticlePage }) => currentArticlePage);
+  const error = useSelector(({ articlePageLoadingError }) => articlePageLoadingError);
+  const errorMessage = useSelector(
+    ({ articlePageLoadingErrorMessage }) => articlePageLoadingErrorMessage
+  );
+  const loading = useSelector(({ articlePageOnLoading }) => articlePageOnLoading);
+
+  if (error) {
+    return <ErrorAlert description={errorMessage} />;
+  }
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   if (data === null) {
-    return null;
+    return <ErrorAlert description="Server Error" />;
   }
 
   const tags = data.tagList.map((el) => (
