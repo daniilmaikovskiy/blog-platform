@@ -8,10 +8,10 @@ const articlesIsReceived = (articlesCount, articles) => {
   };
 };
 
-const articlesLoading = (realworldService) => {
+const articlesLoading = (realworldService, page = 1) => {
   return (dispatch) =>
     realworldService
-      .getArticles()
+      .getArticles(page)
       .then(({ articlesCount, articles }) => dispatch(articlesIsReceived(articlesCount, articles)));
 };
 
