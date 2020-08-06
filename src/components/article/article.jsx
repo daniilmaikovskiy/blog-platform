@@ -22,6 +22,7 @@ import {
 } from './article.module.scss';
 import likeheartImg from '../../img/likeheart.svg';
 import avatarImg from '../../img/avatar.png';
+import { ROOT } from '../../global-settings';
 
 const formatDate = (dateObj) => formatWithOptions({ locale: enUS }, 'MMMM d, yyyy')(dateObj);
 
@@ -37,7 +38,7 @@ const Article = ({ data }) => {
       <section className={firstVisible}>
         <section className={main}>
           <div className={titleBlock}>
-            <Link className={title} to={`/articles/${data.slug}`}>
+            <Link className={title} to={`${ROOT}/articles/${data.slug}`}>
               {data.title}
             </Link>
             <div className={likeBlock}>
