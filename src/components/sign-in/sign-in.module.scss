@@ -26,24 +26,11 @@
   margin-top: 12px;
 }
 
-.checkbox {
-  display: flex;
-  margin-top: 32px;
-  margin-bottom: 20px;
-
-  & > .checkboxText {
-    margin-left: 8px;
-    font-size: 14px;
-    line-height: 22px;
-    color: #595959;
-
-    &:hover {
-      color: #1890ff;
-    }
-  }
+.btn {
+  margin-top: 12px;
 }
 
-.signInLink {
+.signUpLink {
   text-align: center;
   margin-top: 8px;
   font-size: 12px;

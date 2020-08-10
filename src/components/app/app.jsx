@@ -6,6 +6,7 @@ import Articles from '../articles';
 import ArticlePage from '../article-page';
 import { ROOT } from '../../global-settings';
 import SignUp from '../sign-up';
+import SignIn from '../sign-in';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           render={({ match }) => <ArticlePage slug={match.params.slug} />}
         />
         <Route path={`${ROOT}/sign-up`} component={SignUp} />
+        <Route path={`${ROOT}/sign-in`} component={SignIn} />
       </div>
     </Router>
   );
