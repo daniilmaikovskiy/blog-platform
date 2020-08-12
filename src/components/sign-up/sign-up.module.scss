@@ -26,6 +26,19 @@
   margin-top: 12px;
 }
 
+.wrapper .textInputError {
+  & input, & input:focus {
+    border-color: #f5222d;
+  }
+}
+
+.errorMessage {
+  font-size: 14px;
+  line-height: 22px;
+  color: #F5222D;
+  margin-top: 2px;
+}
+
 .checkbox {
   display: flex;
   margin-top: 32px;
