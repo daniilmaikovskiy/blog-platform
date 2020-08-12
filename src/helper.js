@@ -44,7 +44,7 @@ const getErrorMessages = (errors) => {
           return acc.set('password', maxLengthMessage('password', PASSWORD_MAX_LENGTH));
         }
         if (el.type === 'required') {
-          return acc.set('username', 'Required field');
+          return acc.set('password', 'Required field');
         }
         break;
       }

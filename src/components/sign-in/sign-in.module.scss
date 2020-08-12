@@ -26,6 +26,20 @@
   margin-top: 12px;
 }
 
+.wrapper .textInputError {
+  & input,
+  & input:focus {
+    border-color: #f5222d;
+  }
+}
+
+.errorMessage {
+  font-size: 14px;
+  line-height: 22px;
+  color: #f5222d;
+  margin-top: 2px;
+}
+
 .btn {
   margin-top: 12px;
 }
