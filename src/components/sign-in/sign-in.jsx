@@ -64,9 +64,6 @@ const SignIn = () => {
         ref={register(EMAIL_RULES)}
       />
       {errors.email && <span className={classes.errorMessage}>{errorMessages.get('email')}</span>}
-      {authenticationErrors.email && (
-        <span className={classes.errorMessage}>{`Email ${authenticationErrors.email}`}</span>
-      )}
       <TextInput
         className={passwordClasses.join(' ')}
         name="password"
@@ -78,8 +75,10 @@ const SignIn = () => {
       {errors.password && (
         <span className={classes.errorMessage}>{errorMessages.get('password')}</span>
       )}
-      {authenticationErrors.password && (
-        <span className={classes.errorMessage}>{`Password ${authenticationErrors.password}`}</span>
+      {authenticationErrors['email or password'] && (
+        <span
+          className={classes.errorMessage}
+        >{`Email or password ${authenticationErrors['email or password']}`}</span>
       )}
       <Button className={classes.btn} type="primary" htmlType="submit">
         Login

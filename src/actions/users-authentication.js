@@ -53,6 +53,7 @@ const usersAuthentication = (realworldService, data) => {
             expires: USER_DATA_COOKIE_EXPIRES,
           });
         }
+        console.log(json);
         if (json.errors) {
           dispatch(usersAuthenticationErrors(json.errors));
         }
