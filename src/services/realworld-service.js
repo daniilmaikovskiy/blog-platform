@@ -10,4 +10,13 @@ export default class RealworldService {
 
   getSingleArticle = (slug) =>
     fetch(`${this.url}/articles/${slug}`).then((response) => response.json());
+
+  newUsersRegistration = (body) =>
+    fetch(`${this.url}/users`, {
+      method: 'POST',
+      body,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => response.json());
 }

@@ -8,6 +8,10 @@ import {
   ARTICLE_PAGE_LOADING_ERROR,
   ARTICLE_PAGE_LOADING_START,
   ARTICLE_PAGE_LOADING_END,
+  USERS_REGISTRATION_LOADING_ERROR,
+  USERS_REGISTRATION_LOADING_START,
+  USERS_REGISTRATION_LOADING_END,
+  USERS_REGISTRATION_ERRORS,
 } from '../actions/action-types';
 
 const reducer = (
@@ -22,6 +26,10 @@ const reducer = (
     articlePageLoadingError: false,
     articlePageLoadingErrorMessage: '',
     currentArticlePage: null,
+    usersRegistrationLoading: false,
+    usersRegistrationLoadingError: false,
+    usersRegistrationErrorMessage: '',
+    usersRegistrationErrors: {},
   },
   action
 ) => {
@@ -48,6 +56,18 @@ const reducer = (
         articlePageLoadingError: true,
         articlePageLoadingErrorMessage: action.message,
       };
+    case USERS_REGISTRATION_LOADING_START:
+      return { ...state, usersRegistrationLoading: true };
+    case USERS_REGISTRATION_LOADING_END:
+      return { ...state, usersRegistrationLoading: false };
+    case USERS_REGISTRATION_LOADING_ERROR:
+      return {
+        ...state,
+        usersRegistrationLoadingError: true,
+        usersRegistrationErrorMessage: action.message,
+      };
+    case USERS_REGISTRATION_ERRORS:
+      return { ...state, usersRegistrationErrors: action.errors };
     default:
       return state;
   }

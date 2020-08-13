@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Checkbox, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import Cookie from 'js-cookie';
 import classes from './sign-up.module.scss';
 import TextInput from '../text-input';
-import { ROOT, EMAIL_RULES, USERNAME_RULES, PASSWORD_RULES } from '../../global-settings';
+import {
+  ROOT,
+  EMAIL_RULES,
+  USERNAME_RULES,
+  PASSWORD_RULES,
+  USER_DATA_COOKIE_NAME,
+} from '../../global-settings';
 import Helper from '../../helper';
+import RealworldServiceContext from '../realworld-service-context';
+import actions from '../../actions';
+import ErrorAlert from '../error-alert';
+import Spinner from '../spinner';
 
 const SignUp = () => {
+  const dispatch = useDispatch();
   const { register, errors, handleSubmit, watch } = useForm();
+  const realworldService = useContext(RealworldServiceContext);
 
-  const onSibmit = () => {};
+  const onSibmit = (data) => {
+    dispatch(actions.usersRegistration(realworldService, data));
+  };
 
   const usernameClasses = [classes.textInput];
   const emailClasses = [classes.textInput];
@@ -32,6 +48,25 @@ const SignUp = () => {
 
   const errorMessages = Helper.getErrorMessages(errors);
 
+  const error = useSelector(({ usersRegistrationLoadingError }) => usersRegistrationLoadingError);
+  const errorMessage = useSelector(
+    ({ usersRegistrationErrorMessage }) => usersRegistrationErrorMessage
+  );
+  const loading = useSelector(({ usersRegistrationLoading }) => usersRegistrationLoading);
+  const registrationErrors = useSelector(({ usersRegistrationErrors }) => usersRegistrationErrors);
+
+  if (Cookie.get(USER_DATA_COOKIE_NAME)) {
+    return <Redirect to={`${ROOT}/`} />;
+  }
+
+  if (error) {
+    return <ErrorAlert description={errorMessage} />;
+  }
+
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <form className={classes.wrapper} onSubmit={handleSubmit(onSibmit)}>
       <h2 className={classes.title}>Create new account</h2>
@@ -45,6 +80,9 @@ const SignUp = () => {
       {errors.username && (
         <span className={classes.errorMessage}>{errorMessages.get('username')}</span>
       )}
+      {registrationErrors.username && (
+        <span className={classes.errorMessage}>{`Username ${registrationErrors.username}`}</span>
+      )}
       <TextInput
         className={emailClasses.join(' ')}
         name="email"
@@ -54,6 +92,9 @@ const SignUp = () => {
         ref={register(EMAIL_RULES)}
       />
       {errors.email && <span className={classes.errorMessage}>{errorMessages.get('email')}</span>}
+      {registrationErrors.email && (
+        <span className={classes.errorMessage}>{`Email ${registrationErrors.email}`}</span>
+      )}
       <TextInput
         className={passwordClasses.join(' ')}
         name="password"
