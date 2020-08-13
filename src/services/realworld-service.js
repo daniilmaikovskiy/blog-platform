@@ -19,4 +19,13 @@ export default class RealworldService {
         'Content-Type': 'application/json',
       },
     }).then((response) => response.json());
+
+  usersAuthentication = (body) =>
+    fetch(`${this.url}/users/login`, {
+      method: 'POST',
+      body,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((response) => response.json());
 }

@@ -12,6 +12,10 @@ import {
   USERS_REGISTRATION_LOADING_START,
   USERS_REGISTRATION_LOADING_END,
   USERS_REGISTRATION_ERRORS,
+  USERS_AUTHENTICATION_LOADING_ERROR,
+  USERS_AUTHENTICATION_LOADING_START,
+  USERS_AUTHENTICATION_LOADING_END,
+  USERS_AUTHENTICATION_ERRORS,
 } from '../actions/action-types';
 
 const reducer = (
@@ -30,6 +34,10 @@ const reducer = (
     usersRegistrationLoadingError: false,
     usersRegistrationErrorMessage: '',
     usersRegistrationErrors: {},
+    usersAuthenticationLoading: false,
+    usersAuthenticationLoadingError: false,
+    usersAuthenticationErrorMessage: '',
+    usersAuthenticationErrors: {},
   },
   action
 ) => {
@@ -68,6 +76,18 @@ const reducer = (
       };
     case USERS_REGISTRATION_ERRORS:
       return { ...state, usersRegistrationErrors: action.errors };
+    case USERS_AUTHENTICATION_LOADING_ERROR:
+      return {
+        ...state,
+        usersAuthenticationLoadingError: true,
+        usersAuthenticationErrorMessage: action.message,
+      };
+    case USERS_AUTHENTICATION_LOADING_START:
+      return { ...state, usersAuthenticationLoading: true };
+    case USERS_AUTHENTICATION_LOADING_END:
+      return { ...state, usersAuthenticationLoading: false };
+    case USERS_AUTHENTICATION_ERRORS:
+      return { ...state, usersAuthenticationErrors: action.errors };
     default:
       return state;
   }

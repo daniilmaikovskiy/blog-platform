@@ -22,6 +22,12 @@ const selectors = {
   articlePageLoadingErrorMessage: ({ articlePageLoadingErrorMessage }) =>
     articlePageLoadingErrorMessage,
   articlePageOnLoading: ({ articlePageOnLoading }) => articlePageOnLoading,
+  usersAuthenticationLoading: ({ usersAuthenticationLoading }) => usersAuthenticationLoading,
+  usersAuthenticationLoadingError: ({ usersAuthenticationLoadingError }) =>
+    usersAuthenticationLoadingError,
+  usersAuthenticationErrorMessage: ({ usersAuthenticationErrorMessage }) =>
+    usersAuthenticationErrorMessage,
+  usersAuthenticationErrors: ({ usersAuthenticationErrors }) => usersAuthenticationErrors,
 };
 
 export default selectors;
