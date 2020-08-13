@@ -19,12 +19,10 @@ const Articles = () => {
 
   const articleArray = useSelector(selectors.articleArray);
   const totalPages = useSelector(selectors.totalPages);
-  const currentPage = useSelector(({ page }) => page);
-  const error = useSelector(({ articlesLoadingError }) => articlesLoadingError);
-  const errorMessage = useSelector(
-    ({ articlesLoadingErrorMessage }) => articlesLoadingErrorMessage
-  );
-  const loading = useSelector(({ articlesOnLoading }) => articlesOnLoading);
+  const currentPage = useSelector(selectors.page);
+  const error = useSelector(selectors.articlesLoadingError);
+  const errorMessage = useSelector(selectors.articlesLoadingErrorMessage);
+  const loading = useSelector(selectors.articlesOnLoading);
 
   if (error) {
     return <ErrorAlert description={errorMessage} />;

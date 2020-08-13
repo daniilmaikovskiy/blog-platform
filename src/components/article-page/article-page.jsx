@@ -30,6 +30,7 @@ import actions from '../../actions';
 import ErrorAlert from '../error-alert';
 import Spinner from '../spinner';
 import { ROOT } from '../../global-settings';
+import selectors from '../../selectors';
 
 const formatDate = (dateObj) => formatWithOptions({ locale: enUS }, 'MMMM d, yyyy')(dateObj);
 
@@ -44,12 +45,10 @@ const ArticlePage = ({ slug }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const data = useSelector(({ currentArticlePage }) => currentArticlePage);
-  const error = useSelector(({ articlePageLoadingError }) => articlePageLoadingError);
-  const errorMessage = useSelector(
-    ({ articlePageLoadingErrorMessage }) => articlePageLoadingErrorMessage
-  );
-  const loading = useSelector(({ articlePageOnLoading }) => articlePageOnLoading);
+  const data = useSelector(selectors.currentArticlePage);
+  const error = useSelector(selectors.articlePageLoadingError);
+  const errorMessage = useSelector(selectors.articlePageLoadingErrorMessage);
+  const loading = useSelector(selectors.articlePageOnLoading);
 
   if (error) {
     return <ErrorAlert description={errorMessage} />;

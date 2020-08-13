@@ -18,6 +18,7 @@ import RealworldServiceContext from '../realworld-service-context';
 import actions from '../../actions';
 import ErrorAlert from '../error-alert';
 import Spinner from '../spinner';
+import selectors from '../../selectors';
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -48,12 +49,10 @@ const SignUp = () => {
 
   const errorMessages = Helper.getErrorMessages(errors);
 
-  const error = useSelector(({ usersRegistrationLoadingError }) => usersRegistrationLoadingError);
-  const errorMessage = useSelector(
-    ({ usersRegistrationErrorMessage }) => usersRegistrationErrorMessage
-  );
-  const loading = useSelector(({ usersRegistrationLoading }) => usersRegistrationLoading);
-  const registrationErrors = useSelector(({ usersRegistrationErrors }) => usersRegistrationErrors);
+  const error = useSelector(selectors.usersRegistrationLoadingError);
+  const errorMessage = useSelector(selectors.usersRegistrationErrorMessage);
+  const loading = useSelector(selectors.usersRegistrationLoading);
+  const registrationErrors = useSelector(selectors.usersRegistrationErrors);
 
   if (Cookie.get(USER_DATA_COOKIE_NAME)) {
     return <Redirect to={`${ROOT}/`} />;
