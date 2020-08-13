@@ -3,16 +3,9 @@ import { Checkbox, Button } from 'antd';
 import { Link, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import Cookie from 'js-cookie';
 import classes from './sign-up.module.scss';
 import TextInput from '../text-input';
-import {
-  ROOT,
-  EMAIL_RULES,
-  USERNAME_RULES,
-  PASSWORD_RULES,
-  USER_DATA_COOKIE_NAME,
-} from '../../global-settings';
+import { ROOT, EMAIL_RULES, USERNAME_RULES, PASSWORD_RULES } from '../../global-settings';
 import Helper from '../../helper';
 import RealworldServiceContext from '../realworld-service-context';
 import actions from '../../actions';
@@ -53,8 +46,9 @@ const SignUp = () => {
   const errorMessage = useSelector(selectors.usersRegistrationErrorMessage);
   const loading = useSelector(selectors.usersRegistrationLoading);
   const registrationErrors = useSelector(selectors.usersRegistrationErrors);
+  const isLogged = useSelector(selectors.isLogged);
 
-  if (Cookie.get(USER_DATA_COOKIE_NAME)) {
+  if (isLogged) {
     return <Redirect to={`${ROOT}/`} />;
   }
 

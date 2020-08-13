@@ -28,6 +28,7 @@ const selectors = {
   usersAuthenticationErrorMessage: ({ usersAuthenticationErrorMessage }) =>
     usersAuthenticationErrorMessage,
   usersAuthenticationErrors: ({ usersAuthenticationErrors }) => usersAuthenticationErrors,
+  isLogged: ({ isLogged }) => isLogged,
 };
 
 export default selectors;

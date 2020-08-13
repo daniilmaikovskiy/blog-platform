@@ -4,6 +4,7 @@ import {
   USERS_REGISTRATION_LOADING_START,
   USERS_REGISTRATION_LOADING_END,
   USERS_REGISTRATION_ERRORS,
+  USERS_REGISTRATION_SUCCESS,
 } from './action-types';
 import { USER_DATA_COOKIE_NAME, USER_DATA_COOKIE_EXPIRES } from '../global-settings';
 
@@ -33,6 +34,12 @@ const usersRegistrationLoadingEnd = () => {
   };
 };
 
+const usersRegistrationSuccess = () => {
+  return {
+    type: USERS_REGISTRATION_SUCCESS,
+  };
+};
+
 const usersRegistration = (realworldService, data) => {
   return (dispatch) => {
     dispatch(usersRegistrationLoadingStart());
@@ -53,6 +60,7 @@ const usersRegistration = (realworldService, data) => {
             path: '/',
             expires: USER_DATA_COOKIE_EXPIRES,
           });
+          dispatch(usersRegistrationSuccess());
         }
         if (json.errors) {
           dispatch(usersRegistrationErrors(json.errors));

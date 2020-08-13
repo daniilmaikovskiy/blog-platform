@@ -1,5 +1,6 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { wrapper } from './app.module.scss';
 import Header from '../header';
 import Articles from '../articles';
@@ -7,8 +8,16 @@ import ArticlePage from '../article-page';
 import { ROOT } from '../../global-settings';
 import SignUp from '../sign-up';
 import SignIn from '../sign-in';
+import actions from '../../actions';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(actions.checkUsersAuthentication());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Router>
       <div className={wrapper} style={{ minHeight: document.body.clientHeight }}>
@@ -21,6 +30,13 @@ const App = () => {
         />
         <Route path={`${ROOT}/sign-up`} component={SignUp} />
         <Route path={`${ROOT}/sign-in`} component={SignIn} />
+        <Route
+          path={`${ROOT}/logout`}
+          render={() => {
+            dispatch(actions.logouting());
+            return <Redirect to={`${ROOT}/`} />;
+          }}
+        />
       </div>
     </Router>
   );

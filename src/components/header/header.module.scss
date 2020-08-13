@@ -45,3 +45,11 @@
     border-color: #1890ff;
   }
 }
+
+.logOut {
+  @extend .signIn;
+  @extend .signUp;
+
+  border-color: rgba(0, 0, 0, 0.75);
+  color: rgba(0, 0, 0, 0.75);
+}
