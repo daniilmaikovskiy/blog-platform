@@ -50,7 +50,7 @@ const usersRegistration = (realworldService, data) => {
       .then((json) => {
         if (json.user) {
           Cookies.set(USER_DATA_COOKIE_NAME, JSON.stringify(json), {
-            path: '',
+            path: '/',
             expires: USER_DATA_COOKIE_EXPIRES,
           });
         }
