@@ -3,8 +3,8 @@
   justify-content: center;
   align-items: center;
   background: #fff;
-  border: 1px solid #1890FF;
-  color: #1890FF;
+  border: 1px solid #1890ff;
+  color: #1890ff;
   width: 112.23px;
   height: 31.1px;
   border-radius: 5px;
@@ -15,8 +15,9 @@
   transition: all 0.5s ease;
   cursor: pointer;
 
-  &:hover, &:focus {
-    background: #1890FF;
+  &:hover,
+  &:focus {
+    background: #1890ff;
     color: #fff;
   }
 }
