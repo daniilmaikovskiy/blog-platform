@@ -20,6 +20,11 @@ import {
   USERS_AUTHENTICATION_SUCCESS,
   USER_IS_LOGGED,
   LOGOUT,
+  USERS_EDITING_LOADING_ERROR,
+  USERS_EDITING_LOADING_START,
+  USERS_EDITING_LOADING_END,
+  USERS_EDITING_ERRORS,
+  USERS_EDITING_SUCCESS,
 } from '../actions/action-types';
 
 const reducer = (
@@ -42,6 +47,11 @@ const reducer = (
     usersAuthenticationLoadingError: false,
     usersAuthenticationErrorMessage: '',
     usersAuthenticationErrors: {},
+    usersEditingLoading: false,
+    usersEditingLoadingError: false,
+    usersEditingErrorMessage: '',
+    usersEditingErrors: {},
+    usersEditingSuccessObj: {},
     isLogged: false,
   },
   action
@@ -101,6 +111,20 @@ const reducer = (
       return { ...state, isLogged: true };
     case LOGOUT:
       return { ...state, isLogged: false };
+    case USERS_EDITING_LOADING_ERROR:
+      return {
+        ...state,
+        usersEditingLoadingError: true,
+        usersEditingErrorMessage: action.message,
+      };
+    case USERS_EDITING_LOADING_START:
+      return { ...state, usersEditingLoading: true };
+    case USERS_EDITING_LOADING_END:
+      return { ...state, usersEditingLoading: false };
+    case USERS_EDITING_ERRORS:
+      return { ...state, usersEditingErrors: action.errors };
+    case USERS_EDITING_SUCCESS:
+      return { ...state, usersEditingSuccessObj: {} };
     default:
       return state;
   }

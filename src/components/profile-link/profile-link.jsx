@@ -1,14 +1,17 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Cookie from 'js-cookie';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import classes from './profile-link.module.scss';
 import defaultAvatar from '../../img/avatar.png';
 import { USER_DATA_COOKIE_NAME, ROOT } from '../../global-settings';
 import actions from '../../actions';
+import selectors from '../../selectors';
 
 const ProfileLink = () => {
   const dispatch = useDispatch();
+  useSelector(selectors.usersEditingSuccessObj);
+
   let username;
   let userImage;
 

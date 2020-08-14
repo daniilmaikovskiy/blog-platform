@@ -16,7 +16,7 @@ export default class RealworldService {
       method: 'POST',
       body,
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
       },
     }).then((response) => response.json());
 
@@ -25,7 +25,18 @@ export default class RealworldService {
       method: 'POST',
       body,
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+    }).then((response) => response.json());
+
+  // Accepted fields: email, username, password, image, bio
+  updateUser = (body, token) =>
+    fetch(`${this.url}/user`, {
+      method: 'PUT',
+      body,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Authorization: `Token ${token}`,
       },
     }).then((response) => response.json());
 }

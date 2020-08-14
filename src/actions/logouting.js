@@ -10,7 +10,7 @@ const logout = () => {
 
 const logouting = () => {
   return (dispatch) => {
-    Cookies.remove(USER_DATA_COOKIE_NAME, { path: '/' });
+    Cookies.remove(USER_DATA_COOKIE_NAME, { path: '/', sameSite: 'Strict' });
     dispatch(logout());
   };
 };

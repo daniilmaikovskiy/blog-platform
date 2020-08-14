@@ -8,6 +8,7 @@ import ArticlePage from '../article-page';
 import { ROOT } from '../../global-settings';
 import SignUp from '../sign-up';
 import SignIn from '../sign-in';
+import EditProfile from '../edit-profile';
 import actions from '../../actions';
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
         />
         <Route path={`${ROOT}/sign-up`} component={SignUp} />
         <Route path={`${ROOT}/sign-in`} component={SignIn} />
+        <Route path={`${ROOT}/profile`} component={EditProfile} />
         <Route
           path={`${ROOT}/logout`}
           render={() => {

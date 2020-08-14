@@ -2,6 +2,9 @@ export const NUMBER_OF_ARTICLES_ON_PAGE = 5;
 export const ROOT = '/blog-platform';
 
 const EMAIL_PATTERN = new RegExp(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/);
+const URL_PATTERN = new RegExp(
+  /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/
+);
 
 export const USERNAME_MIN_LENGTH = 3;
 export const USERNAME_MAX_LENGTH = 20;
@@ -9,6 +12,7 @@ export const PASSWORD_MIN_LENGTH = 6;
 export const PASSWORD_MAX_LENGTH = 40;
 
 export const EMAIL_RULES = { required: true, pattern: EMAIL_PATTERN };
+export const URL_RULES = { required: true, pattern: URL_PATTERN };
 export const USERNAME_RULES = {
   required: true,
   minLength: USERNAME_MIN_LENGTH,
@@ -27,6 +31,7 @@ const GLOBAL_SETTINGS = {
   NUMBER_OF_ARTICLES_ON_PAGE,
   ROOT,
   EMAIL_RULES,
+  URL_RULES,
   USERNAME_RULES,
   PASSWORD_RULES,
   USERNAME_MIN_LENGTH,

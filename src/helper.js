@@ -36,6 +36,15 @@ const getErrorMessages = (errors) => {
         }
         break;
       }
+      case 'image': {
+        if (el.type === 'pattern') {
+          return acc.set('image', 'Invalid url');
+        }
+        if (el.type === 'required') {
+          return acc.set('image', 'Required field');
+        }
+        break;
+      }
       case 'password': {
         if (el.type === 'minLength') {
           return acc.set('password', minLengthMessage('password', PASSWORD_MIN_LENGTH));

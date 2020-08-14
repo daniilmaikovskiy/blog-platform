@@ -28,6 +28,11 @@ const selectors = {
   usersAuthenticationErrorMessage: ({ usersAuthenticationErrorMessage }) =>
     usersAuthenticationErrorMessage,
   usersAuthenticationErrors: ({ usersAuthenticationErrors }) => usersAuthenticationErrors,
+  usersEditingLoading: ({ usersEditingLoading }) => usersEditingLoading,
+  usersEditingLoadingError: ({ usersEditingLoadingError }) => usersEditingLoadingError,
+  usersEditingErrorMessage: ({ usersEditingErrorMessage }) => usersEditingErrorMessage,
+  usersEditingErrors: ({ usersEditingErrors }) => usersEditingErrors,
+  usersEditingSuccessObj: ({ usersEditingSuccessObj }) => usersEditingSuccessObj,
   isLogged: ({ isLogged }) => isLogged,
 };
 
