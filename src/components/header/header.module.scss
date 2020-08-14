@@ -47,9 +47,22 @@
 }
 
 .logOut {
-  @extend .signIn;
   @extend .signUp;
 
+  margin-right: 22px;
+  margin-left: 27px;
   border-color: rgba(0, 0, 0, 0.75);
   color: rgba(0, 0, 0, 0.75);
+}
+
+.wrapper .createArticle {
+  color: #52C41A;
+  border-color: #52C41A;
+  &:hover, &:focus {
+    background-color: #52C41A;
+  }
+}
+
+.createArticleLink {
+  margin-left: auto;
 }
