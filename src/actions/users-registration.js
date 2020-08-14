@@ -59,7 +59,8 @@ const usersRegistration = (realworldService, data) => {
           Cookies.set(USER_DATA_COOKIE_NAME, JSON.stringify(json), {
             path: '/',
             expires: USER_DATA_COOKIE_EXPIRES,
-            sameSite: 'Strict',
+            sameSite: 'strict',
+            secure: true,
           });
           dispatch(usersRegistrationSuccess());
         }

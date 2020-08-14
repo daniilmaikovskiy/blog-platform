@@ -27,10 +27,18 @@ const SignUp = () => {
   const passwordClasses = [classes.textInput];
   const repeatPasswordClasses = [classes.textInput];
 
-  if (errors.username) {
+  const errorMessages = Helper.getErrorMessages(errors);
+
+  const error = useSelector(selectors.usersRegistrationLoadingError);
+  const errorMessage = useSelector(selectors.usersRegistrationErrorMessage);
+  const loading = useSelector(selectors.usersRegistrationLoading);
+  const registrationErrors = useSelector(selectors.usersRegistrationErrors);
+  const isLogged = useSelector(selectors.isLogged);
+
+  if (errors.username || registrationErrors.username) {
     usernameClasses.push(classes.textInputError);
   }
-  if (errors.email) {
+  if (errors.email || registrationErrors.email) {
     emailClasses.push(classes.textInputError);
   }
   if (errors.password) {
@@ -39,14 +47,6 @@ const SignUp = () => {
   if (errors.repeatPassword) {
     repeatPasswordClasses.push(classes.textInputError);
   }
-
-  const errorMessages = Helper.getErrorMessages(errors);
-
-  const error = useSelector(selectors.usersRegistrationLoadingError);
-  const errorMessage = useSelector(selectors.usersRegistrationErrorMessage);
-  const loading = useSelector(selectors.usersRegistrationLoading);
-  const registrationErrors = useSelector(selectors.usersRegistrationErrors);
-  const isLogged = useSelector(selectors.isLogged);
 
   if (isLogged) {
     return <Redirect to={`${ROOT}/`} />;

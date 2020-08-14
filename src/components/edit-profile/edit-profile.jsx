@@ -33,10 +33,18 @@ const EditProfile = () => {
   const passwordClasses = [classes.textInput];
   const imageClasses = [classes.textInput];
 
-  if (errors.username) {
+  const errorMessages = Helper.getErrorMessages(errors);
+
+  const error = useSelector(selectors.usersEditingLoadingError);
+  const errorMessage = useSelector(selectors.usersEditingErrorMessage);
+  const loading = useSelector(selectors.usersEditingLoading);
+  const editingErrors = useSelector(selectors.usersEditingErrors);
+  const isLogged = useSelector(selectors.isLogged);
+
+  if (errors.username || editingErrors.username) {
     usernameClasses.push(classes.textInputError);
   }
-  if (errors.email) {
+  if (errors.email || editingErrors.email) {
     emailClasses.push(classes.textInputError);
   }
   if (errors.password) {
@@ -45,14 +53,6 @@ const EditProfile = () => {
   if (errors.image) {
     imageClasses.push(classes.textInputError);
   }
-
-  const errorMessages = Helper.getErrorMessages(errors);
-
-  const error = useSelector(selectors.usersEditingLoadingError);
-  const errorMessage = useSelector(selectors.usersEditingErrorMessage);
-  const loading = useSelector(selectors.usersEditingLoading);
-  const editingErrors = useSelector(selectors.usersEditingErrors);
-  const isLogged = useSelector(selectors.isLogged);
 
   if (!isLogged) {
     return <Redirect to={`${ROOT}/`} />;
