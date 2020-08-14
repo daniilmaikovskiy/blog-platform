@@ -80,7 +80,6 @@ const usersEditing = (realworldService, data) => {
             path: '/',
             expires: USER_DATA_COOKIE_EXPIRES,
             sameSite: 'strict',
-            secure: true,
           });
           dispatch(usersEditingSuccess());
         }

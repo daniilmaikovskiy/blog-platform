@@ -13,7 +13,6 @@ const logouting = () => {
     Cookies.remove(USER_DATA_COOKIE_NAME, {
       path: '/',
       sameSite: 'strict',
-      secure: true,
     });
     dispatch(logout());
   };
