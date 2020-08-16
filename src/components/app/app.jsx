@@ -10,6 +10,7 @@ import SignUp from '../sign-up';
 import SignIn from '../sign-in';
 import EditProfile from '../edit-profile';
 import actions from '../../actions';
+import CreateArticlePage from '../create-article-page';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const App = () => {
         <Route path={`${ROOT}/sign-up`} component={SignUp} />
         <Route path={`${ROOT}/sign-in`} component={SignIn} />
         <Route path={`${ROOT}/profile`} component={EditProfile} />
+        <Route path={`${ROOT}/new-article`} component={CreateArticlePage} />
         <Route
           path={`${ROOT}/logout`}
           render={() => {

@@ -45,6 +45,24 @@ const getErrorMessages = (errors) => {
         }
         break;
       }
+      case 'title': {
+        if (el.type === 'required') {
+          return acc.set('title', 'Required field');
+        }
+        break;
+      }
+      case 'description': {
+        if (el.type === 'required') {
+          return acc.set('description', 'Required field');
+        }
+        break;
+      }
+      case 'body': {
+        if (el.type === 'required') {
+          return acc.set('body', 'Required field');
+        }
+        break;
+      }
       case 'password': {
         if (el.type === 'minLength') {
           return acc.set('password', minLengthMessage('password', PASSWORD_MIN_LENGTH));

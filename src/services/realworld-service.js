@@ -39,4 +39,14 @@ export default class RealworldService {
         Authorization: `Token ${token}`,
       },
     }).then((response) => response.json());
+
+  createArticle = (body, token) =>
+    fetch(`${this.url}/articles`, {
+      method: 'POST',
+      body,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Authorization: `Token ${token}`,
+      },
+    }).then((response) => response.json());
 }
