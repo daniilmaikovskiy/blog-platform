@@ -15,8 +15,8 @@ const TagField = forwardRef(({ className, signature, name, isLast }, ref) => {
         placeholder="Tag"
         ref={ref}
       />
-      <Button className={classes.btn} text="Add tag" />
-      {isLast && <Button className={classes.delete} text="Delete" />}
+      <Button className={classes.delete} text="Delete" />
+      {isLast && <Button className={classes.btn} text="Add tag" />}
     </div>
   );
 });
