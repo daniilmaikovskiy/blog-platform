@@ -58,8 +58,8 @@ const ArticleForm = ({ onSubmit }) => {
       />
       {errors.body && <span className={classes.errorMessage}>{errorMessages.get('body')}</span>}
       <div className={classes.tags}>
-        <TagField className={classes.tag} name="tag[0]" signature="Tags" ref={register} />
-        <TagField className={classes.tag} name="tag[1]" isLast ref={register} />
+        <TagField className={classes.tag} name="tagList[0]" signature="Tags" ref={register} />
+        <TagField className={classes.tag} name="tagList[1]" isLast ref={register} />
       </div>
       <AntdButton className={classes.btn} type="primary" htmlType="submit">
         Send
