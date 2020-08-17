@@ -6,9 +6,9 @@ import classes from './article-form.module.scss';
 import TextInput from '../text-input';
 import TextArea from '../text-area';
 import Helper from '../../helper';
-import TagField from '../tag-field';
+import TagFieldSet from '../tag-field-set';
 
-const ArticleForm = ({ onSubmit }) => {
+const ArticleForm = ({ onSubmit, addTag, deleteTag, changeTag, tagsInfo }) => {
   const { register, errors, handleSubmit } = useForm();
 
   const titleClasses = [classes.textInput];
@@ -57,10 +57,14 @@ const ArticleForm = ({ onSubmit }) => {
         ref={register({ required: true })}
       />
       {errors.body && <span className={classes.errorMessage}>{errorMessages.get('body')}</span>}
-      <div className={classes.tags}>
-        <TagField className={classes.tag} name="tagList[0]" signature="Tags" ref={register} />
-        <TagField className={classes.tag} name="tagList[1]" isLast ref={register} />
-      </div>
+      <TagFieldSet
+        className={classes.tags}
+        tagsInfo={tagsInfo}
+        addTag={addTag}
+        deleteTag={deleteTag}
+        changeTag={changeTag}
+        ref={register}
+      />
       <AntdButton className={classes.btn} type="primary" htmlType="submit">
         Send
       </AntdButton>
@@ -70,10 +74,16 @@ const ArticleForm = ({ onSubmit }) => {
 
 ArticleForm.defaultProps = {
   onSubmit: () => {},
+  addTag: () => {},
+  deleteTag: () => {},
 };
 
 ArticleForm.propTypes = {
   onSubmit: PropTypes.func,
+  addTag: PropTypes.func,
+  deleteTag: PropTypes.func,
+  changeTag: PropTypes.func.isRequired,
+  tagsInfo: PropTypes.objectOf(Map).isRequired,
 };
 
 export default ArticleForm;

@@ -34,6 +34,7 @@ const selectors = {
   usersEditingErrors: ({ usersEditingErrors }) => usersEditingErrors,
   usersEditingSuccessObj: ({ usersEditingSuccessObj }) => usersEditingSuccessObj,
   isLogged: ({ isLogged }) => isLogged,
+  createArticlePageTagsInfo: ({ createArticlePageTagsInfo }) => new Map(createArticlePageTagsInfo),
 };
 
 export default selectors;

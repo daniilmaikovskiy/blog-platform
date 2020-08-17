@@ -6,6 +6,9 @@ import usersAuthentication from './users-authentication';
 import checkUsersAuthentication from './check-users-authentication';
 import logouting from './logouting';
 import usersEditing from './users-editing';
+import addTagOnCreateArticlePage from './add-tag-on-create-article-page';
+import deleteTagOnCreateArticlePage from './delete-tag-on-create-article-page';
+import changeTagOnCreateArticlePage from './change-tag-on-create-article-page';
 
 const actions = {
   articlesLoading,
@@ -16,6 +19,9 @@ const actions = {
   usersEditing,
   checkUsersAuthentication,
   logouting,
+  addTagOnCreateArticlePage,
+  deleteTagOnCreateArticlePage,
+  changeTagOnCreateArticlePage,
 };
 
 export default actions;
