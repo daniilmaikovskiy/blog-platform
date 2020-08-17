@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import Cookie from 'js-cookie';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +9,7 @@ import { USER_DATA_COOKIE_NAME, ROOT } from '../../global-settings';
 import actions from '../../actions';
 import selectors from '../../selectors';
 
-const ProfileLink = () => {
+const ProfileLink = ({ className }) => {
   const dispatch = useDispatch();
   useSelector(selectors.usersEditingSuccessObj);
 
@@ -27,11 +28,19 @@ const ProfileLink = () => {
   const avatar = userImage === null ? defaultAvatar : userImage;
 
   return (
-    <Link className={classes.wrapper} to={`${ROOT}/profile`}>
+    <Link className={[classes.wrapper, className].join(' ')} to={`${ROOT}/profile`}>
       <span>{username}</span>
       <img src={avatar} alt="" width="46" height="46" />
     </Link>
   );
+};
+
+ProfileLink.defaultProps = {
+  className: '',
+};
+
+ProfileLink.propTypes = {
+  className: PropTypes.string,
 };
 
 export default ProfileLink;
