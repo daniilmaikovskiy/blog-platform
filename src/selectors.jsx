@@ -33,6 +33,10 @@ const selectors = {
   usersEditingErrorMessage: ({ usersEditingErrorMessage }) => usersEditingErrorMessage,
   usersEditingErrors: ({ usersEditingErrors }) => usersEditingErrors,
   usersEditingSuccessObj: ({ usersEditingSuccessObj }) => usersEditingSuccessObj,
+  creatingArticleLoading: ({ creatingArticleLoading }) => creatingArticleLoading,
+  creatingArticleLoadingError: ({ creatingArticleLoadingError }) => creatingArticleLoadingError,
+  creatingArticleErrorMessage: ({ creatingArticleErrorMessage }) => creatingArticleErrorMessage,
+  creatingArticleSuccess: ({ creatingArticleSuccess }) => creatingArticleSuccess,
   isLogged: ({ isLogged }) => isLogged,
   createArticlePageTagsInfo: ({ createArticlePageTagsInfo }) => new Map(createArticlePageTagsInfo),
 };

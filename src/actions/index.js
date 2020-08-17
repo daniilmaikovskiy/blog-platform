@@ -9,6 +9,7 @@ import usersEditing from './users-editing';
 import addTagOnCreateArticlePage from './add-tag-on-create-article-page';
 import deleteTagOnCreateArticlePage from './delete-tag-on-create-article-page';
 import changeTagOnCreateArticlePage from './change-tag-on-create-article-page';
+import creatingArticle from './creating-article';
 
 const actions = {
   articlesLoading,
@@ -22,6 +23,7 @@ const actions = {
   addTagOnCreateArticlePage,
   deleteTagOnCreateArticlePage,
   changeTagOnCreateArticlePage,
+  creatingArticle,
 };
 
 export default actions;

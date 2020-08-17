@@ -27,6 +27,10 @@ import {
   USERS_EDITING_SUCCESS,
   CHANGED_TAGS_INFO_ON_CREATE_ARTICLE_PAGE,
   CHANGED_MAX_TAG_INDEX_ON_CREATE_ARTICLE_PAGE,
+  CREATING_ARTICLE_LOADING_ERROR,
+  CREATING_ARTICLE_LOADING_START,
+  CREATING_ARTICLE_LOADING_END,
+  CREATING_ARTICLE_SUCCESS,
 } from '../actions/action-types';
 
 const reducer = (
@@ -54,6 +58,10 @@ const reducer = (
     usersEditingErrorMessage: '',
     usersEditingErrors: {},
     usersEditingSuccessObj: {},
+    creatingArticleLoading: false,
+    creatingArticleLoadingError: false,
+    creatingArticleErrorMessage: '',
+    creatingArticleSuccess: false,
     isLogged: false,
     createArticlePageTagsInfo: [[0, '']],
     createArticlePageMaxTagIndex: 1,
@@ -133,6 +141,18 @@ const reducer = (
       return { ...state, createArticlePageTagsInfo: action.tagsInfo };
     case CHANGED_MAX_TAG_INDEX_ON_CREATE_ARTICLE_PAGE:
       return { ...state, createArticlePageMaxTagIndex: action.maxTagIndex };
+    case CREATING_ARTICLE_LOADING_ERROR:
+      return {
+        ...state,
+        creatingArticleLoadingError: true,
+        creatingArticleErrorMessage: action.message,
+      };
+    case CREATING_ARTICLE_LOADING_START:
+      return { ...state, creatingArticleLoading: true };
+    case CREATING_ARTICLE_LOADING_END:
+      return { ...state, creatingArticleLoading: false };
+    case CREATING_ARTICLE_SUCCESS:
+      return { ...state, creatingArticleSuccess: true };
     default:
       return state;
   }
