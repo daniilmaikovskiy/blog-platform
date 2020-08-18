@@ -38,7 +38,7 @@ const App = () => {
           path={`${ROOT}/logout`}
           render={() => {
             dispatch(actions.logouting());
-            return <Redirect to={`${ROOT}/`} />;
+            return <Redirect to={`${ROOT}/sign-in`} />;
           }}
         />
       </div>

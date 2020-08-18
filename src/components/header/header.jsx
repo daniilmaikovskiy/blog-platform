@@ -1,13 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classes from './header.module.scss';
 import { ROOT } from '../../global-settings';
 import selectors from '../../selectors';
+import actions from '../../actions';
 import ProfileLink from '../profile-link';
 import Button from '../button';
 
 const Header = () => {
+  const dispatch = useDispatch();
   const isLogged = useSelector(selectors.isLogged);
 
   const createArticleLinkClasses = [classes.createArticleLink];
@@ -21,8 +23,8 @@ const Header = () => {
     signUpClasses.push(classes.hidden);
   } else {
     createArticleLinkClasses.push(classes.hidden);
-    profileLinkClasses.push(classes.hidden);
     logOutClasses.push(classes.hidden);
+    profileLinkClasses.push(classes.hidden);
   }
 
   return (
@@ -34,9 +36,13 @@ const Header = () => {
         <Button className={classes.createArticle} text="Create article" />
       </Link>
       <ProfileLink className={profileLinkClasses.join(' ')} />
-      <Link to={`${ROOT}/logout`} className={logOutClasses.join(' ')}>
+      <button
+        type="button"
+        className={logOutClasses.join(' ')}
+        onClick={() => dispatch(actions.logouting())}
+      >
         Log Out
-      </Link>
+      </button>
       <Link to={`${ROOT}/sign-in`} className={signInClasses.join(' ')}>
         Sign In
       </Link>

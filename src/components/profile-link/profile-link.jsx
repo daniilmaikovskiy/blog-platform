@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Cookie from 'js-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './profile-link.module.scss';
@@ -12,17 +12,22 @@ import selectors from '../../selectors';
 const ProfileLink = ({ className }) => {
   const dispatch = useDispatch();
   useSelector(selectors.usersEditingSuccessObj);
+  const isLogged = useSelector(selectors.isLogged);
 
   let username;
   let userImage;
 
-  try {
-    const { user } = JSON.parse(Cookie.get(USER_DATA_COOKIE_NAME));
-    username = user.username;
-    userImage = user.image;
-  } catch {
-    dispatch(actions.logouting());
-    return <Redirect to={`${ROOT}/`} />;
+  if (isLogged) {
+    try {
+      const { user } = JSON.parse(Cookie.get(USER_DATA_COOKIE_NAME));
+      username = user.username;
+      userImage = user.image;
+    } catch {
+      dispatch(actions.logouting());
+      return null;
+    }
+  } else {
+    return null;
   }
 
   const avatar = userImage === null ? defaultAvatar : userImage;
