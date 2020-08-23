@@ -31,6 +31,16 @@ import {
   CREATING_ARTICLE_LOADING_START,
   CREATING_ARTICLE_LOADING_END,
   CREATING_ARTICLE_SUCCESS,
+  DELETING_ARTICLE_LOADING_ERROR,
+  DELETING_ARTICLE_LOADING_START,
+  DELETING_ARTICLE_LOADING_END,
+  DELETED_ARTICLE,
+  EDITING_ARTICLE_LOADING_ERROR,
+  EDITING_ARTICLE_LOADING_START,
+  EDITING_ARTICLE_LOADING_END,
+  EDITING_ARTICLE_SUCCESS,
+  CHANGED_TAGS_INFO_ON_EDIT_ARTICLE_PAGE,
+  CHANGED_MAX_TAG_INDEX_ON_EDIT_ARTICLE_PAGE,
 } from '../actions/action-types';
 
 const reducer = (
@@ -65,6 +75,15 @@ const reducer = (
     isLogged: false,
     createArticlePageTagsInfo: [[0, '']],
     createArticlePageMaxTagIndex: 1,
+    deletingArticleLoading: false,
+    deletingArticleLoadingError: false,
+    deletingArticleErrorMessage: '',
+    editingArticleLoading: false,
+    editingArticleLoadingError: false,
+    editingArticleErrorMessage: '',
+    editingArticleSuccess: false,
+    editArticlePageTagsInfo: [[0, '']],
+    editArticlePageMaxTagIndex: 1,
   },
   action
 ) => {
@@ -153,6 +172,40 @@ const reducer = (
       return { ...state, creatingArticleLoading: false };
     case CREATING_ARTICLE_SUCCESS:
       return { ...state, creatingArticleSuccess: true };
+    case DELETING_ARTICLE_LOADING_ERROR:
+      return {
+        ...state,
+        LoadingError: true,
+        ErrorMessage: action.message,
+      };
+    case DELETING_ARTICLE_LOADING_START:
+      return { ...state, Loading: true };
+    case DELETING_ARTICLE_LOADING_END:
+      return { ...state, Loading: false };
+    case DELETED_ARTICLE:
+      return {
+        ...state,
+        deletingArticleLoading: false,
+        deletingArticleLoadingError: false,
+        deletingArticleErrorMessage: '',
+        deletingArticleSuccess: false,
+      };
+    case EDITING_ARTICLE_LOADING_ERROR:
+      return {
+        ...state,
+        editingArticleLoadingError: true,
+        editingArticleErrorMessage: action.message,
+      };
+    case EDITING_ARTICLE_LOADING_START:
+      return { ...state, editingArticleLoading: true };
+    case EDITING_ARTICLE_LOADING_END:
+      return { ...state, editingArticleLoading: false };
+    case EDITING_ARTICLE_SUCCESS:
+      return { ...state, editingArticleSuccess: true };
+    case CHANGED_TAGS_INFO_ON_EDIT_ARTICLE_PAGE:
+      return { ...state, editArticlePageTagsInfo: action.tagsInfo };
+    case CHANGED_MAX_TAG_INDEX_ON_EDIT_ARTICLE_PAGE:
+      return { ...state, editArticlePageMaxTagIndex: action.maxTagIndex };
     default:
       return state;
   }

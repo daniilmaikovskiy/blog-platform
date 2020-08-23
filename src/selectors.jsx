@@ -39,6 +39,14 @@ const selectors = {
   creatingArticleSuccess: ({ creatingArticleSuccess }) => creatingArticleSuccess,
   isLogged: ({ isLogged }) => isLogged,
   createArticlePageTagsInfo: ({ createArticlePageTagsInfo }) => new Map(createArticlePageTagsInfo),
+  editArticlePageTagsInfo: ({ editArticlePageTagsInfo }) => new Map(editArticlePageTagsInfo),
+  deletingArticleLoading: ({ deletingArticleLoading }) => deletingArticleLoading,
+  deletingArticleLoadingError: ({ deletingArticleLoadingError }) => deletingArticleLoadingError,
+  deletingArticleErrorMessage: ({ deletingArticleErrorMessage }) => deletingArticleErrorMessage,
+  editingArticleLoading: ({ editingArticleLoading }) => editingArticleLoading,
+  editingArticleLoadingError: ({ editingArticleLoadingError }) => editingArticleLoadingError,
+  editingArticleErrorMessage: ({ editingArticleErrorMessage }) => editingArticleErrorMessage,
+  editingArticleSuccess: ({ editingArticleSuccess }) => editingArticleSuccess,
 };
 
 export default selectors;

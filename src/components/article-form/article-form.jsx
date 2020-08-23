@@ -8,7 +8,16 @@ import TextArea from '../text-area';
 import Helper from '../../helper';
 import TagFieldSet from '../tag-field-set';
 
-const ArticleForm = ({ onSubmit, addTag, deleteTag, changeTag, tagsInfo }) => {
+const ArticleForm = ({
+  onSubmit,
+  addTag,
+  deleteTag,
+  changeTag,
+  tagsInfo,
+  defaultTitle,
+  defaultDescription,
+  defaultBody,
+}) => {
   const { register, errors, handleSubmit } = useForm();
 
   const titleClasses = [classes.textInput];
@@ -35,6 +44,7 @@ const ArticleForm = ({ onSubmit, addTag, deleteTag, changeTag, tagsInfo }) => {
         type="text"
         signature="Title"
         placeholder="Title"
+        defaultValue={defaultTitle}
         ref={register({ required: true })}
       />
       {errors.title && <span className={classes.errorMessage}>{errorMessages.get('title')}</span>}
@@ -44,6 +54,7 @@ const ArticleForm = ({ onSubmit, addTag, deleteTag, changeTag, tagsInfo }) => {
         type="text"
         signature="Short description"
         placeholder="Some short description that displays in atricles list"
+        defaultValue={defaultDescription}
         ref={register({ required: true })}
       />
       {errors.description && (
@@ -54,6 +65,7 @@ const ArticleForm = ({ onSubmit, addTag, deleteTag, changeTag, tagsInfo }) => {
         name="body"
         signature="Text"
         placeholder="Text"
+        defaultValue={defaultBody}
         ref={register({ required: true })}
       />
       {errors.body && <span className={classes.errorMessage}>{errorMessages.get('body')}</span>}
@@ -76,6 +88,9 @@ ArticleForm.defaultProps = {
   onSubmit: () => {},
   addTag: () => {},
   deleteTag: () => {},
+  defaultTitle: '',
+  defaultDescription: '',
+  defaultBody: '',
 };
 
 ArticleForm.propTypes = {
@@ -84,6 +99,9 @@ ArticleForm.propTypes = {
   deleteTag: PropTypes.func,
   changeTag: PropTypes.func.isRequired,
   tagsInfo: PropTypes.objectOf(Map).isRequired,
+  defaultTitle: PropTypes.string,
+  defaultDescription: PropTypes.string,
+  defaultBody: PropTypes.string,
 };
 
 export default ArticleForm;

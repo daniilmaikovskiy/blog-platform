@@ -49,4 +49,22 @@ export default class RealworldService {
         Authorization: `Token ${token}`,
       },
     }).then((response) => response.json());
+
+  deleteArticle = (slug, token) =>
+    fetch(`${this.url}/articles/${slug}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    }).then((response) => response.json());
+
+  updateArticle = (slug, token, body) =>
+    fetch(`${this.url}/articles/${slug}`, {
+      method: 'PUT',
+      body,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Authorization: `Token ${token}`,
+      },
+    }).then((response) => response.json());
 }

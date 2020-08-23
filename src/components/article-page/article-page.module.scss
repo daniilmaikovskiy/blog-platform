@@ -31,6 +31,47 @@
 .authorBlock {
   display: flex;
   justify-content: flex-end;
+  height: auto;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  height: auto;
+  margin-top: 30px;
+}
+
+.button {
+  width: 78px;
+  height: 31px;
+}
+
+.delete {
+  @extend .button;
+  border-color: #f5222d;
+  color: #f5222d;
+  margin-right: 12px;
+  &:hover,
+  &:focus {
+    background: #f5222d;
+  }
+}
+
+.edit {
+  @extend .button;
+  width: 65px;
+  border-color: #52C41A;
+  color: #52C41A;
+  &:hover,
+  &:focus {
+    background: #52C41A;
+  }
+}
+
+.sideBlock {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-end;
   width: 30%;
   height: auto;
 }
@@ -38,8 +79,8 @@
 .authorBlockText {
   display: flex;
   flex-direction: column;
-  margin-right: 10px;
   align-items: center;
+  margin-right: 10px;
 }
 
 .author {
@@ -100,4 +141,8 @@
 .tagBlock {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.hidden {
+  display: none;
 }

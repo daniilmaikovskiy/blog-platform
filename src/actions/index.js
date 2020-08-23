@@ -10,6 +10,12 @@ import addTagOnCreateArticlePage from './add-tag-on-create-article-page';
 import deleteTagOnCreateArticlePage from './delete-tag-on-create-article-page';
 import changeTagOnCreateArticlePage from './change-tag-on-create-article-page';
 import creatingArticle from './creating-article';
+import deletingArticle from './deleting-article';
+import editingArticle from './editing-article';
+import addTagOnEditArticlePage from './add-tag-on-edit-article-page';
+import deleteTagOnEditArticlePage from './delete-tag-on-edit-article-page';
+import changeTagOnEditArticlePage from './change-tag-on-edit-article-page';
+import initEditArticlePage from './init-edit-article-page';
 
 const actions = {
   articlesLoading,
@@ -24,6 +30,12 @@ const actions = {
   deleteTagOnCreateArticlePage,
   changeTagOnCreateArticlePage,
   creatingArticle,
+  deletingArticle,
+  editingArticle,
+  addTagOnEditArticlePage,
+  deleteTagOnEditArticlePage,
+  changeTagOnEditArticlePage,
+  initEditArticlePage,
 };
 
 export default actions;

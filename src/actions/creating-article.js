@@ -51,8 +51,7 @@ const creatingArticle = (realworldService, { title, description, body, tagList }
 
     realworldService
       .createArticle(json, token)
-      .then((responseJson) => {
-        console.log(responseJson);
+      .then(() => {
         dispatch(creatingArticleSuccess());
       })
       .catch((error) => dispatch(creatingArticleLoadingError(error.message)))
