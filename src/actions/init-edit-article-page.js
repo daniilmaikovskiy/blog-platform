@@ -5,6 +5,12 @@ import {
 
 const initEditArticlePage = () => {
   return (dispatch, getState) => {
+    const { currentArticlePage } = getState();
+
+    if (currentArticlePage === null) {
+      return;
+    }
+
     const { tagList } = getState().currentArticlePage;
 
     const maxTagIndex = tagList.length !== 0 ? tagList.length : 1;

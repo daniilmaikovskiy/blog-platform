@@ -26,7 +26,7 @@ const CreateArticlePage = () => {
   const isLogged = useSelector(selectors.isLogged);
 
   if (!isLogged) {
-    return <Redirect to={`${ROOT}/`} />;
+    return <Redirect to={`${ROOT}/sign-in`} />;
   }
 
   if (error) {
