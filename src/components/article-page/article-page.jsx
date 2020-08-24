@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { enUS } from 'date-fns/locale';
 import { formatWithOptions } from 'date-fns/fp';
 import { Link, withRouter } from 'react-router-dom';
-import { Tag } from 'antd';
+import { Tag, Button as AntdButton } from 'antd';
 import marksy from 'marksy';
 import Cookies from 'js-cookie';
 import classes from './article-page.module.scss';
@@ -34,6 +34,7 @@ const ArticlePage = ({ slug, history }) => {
   const deletingArticleError = useSelector(selectors.deletingArticleLoadingError);
   const deletingArticleErrorMessage = useSelector(selectors.deletingArticleErrorMessage);
   const deletingArticleLoading = useSelector(selectors.deletingArticleLoading);
+  const isClickedDelete = useSelector(selectors.articlePageDeleteModalWindowIsShowed);
 
   useEffect(() => {
     dispatch(actions.articlePageLoading(realworldService, slug));
@@ -41,7 +42,6 @@ const ArticlePage = ({ slug, history }) => {
   }, []);
 
   let username;
-  console.log(history);
 
   if (isLogged) {
     try {
@@ -115,10 +115,38 @@ const ArticlePage = ({ slug, history }) => {
               className={classes.delete}
               text="Delete"
               onClick={() => {
-                dispatch(actions.deletingArticle(realworldService, slug));
-                history.push(`${ROOT}/articles/`);
+                dispatch(actions.articlePageShowDeleteModalWindow());
               }}
             />
+            {isClickedDelete && (
+              <div className={classes.modal}>
+                <div className={classes.modalAlert}>
+                  <div className={classes.alertSymbol}>!</div>
+                  <div className={classes.alertMessage}>Are you sure to delete this article?</div>
+                </div>
+                <div className={classes.modalButtons}>
+                  <AntdButton
+                    size="small"
+                    onClick={() => {
+                      dispatch(actions.articlePageHideDeleteModalWindow());
+                    }}
+                  >
+                    No
+                  </AntdButton>
+                  <AntdButton
+                    className={classes.modalButtonYes}
+                    size="small"
+                    type="primary"
+                    onClick={() => {
+                      dispatch(actions.deletingArticle(realworldService, slug));
+                      history.push(`${ROOT}/articles/`);
+                    }}
+                  >
+                    Yes
+                  </AntdButton>
+                </div>
+              </div>
+            )}
             <Link to={`${ROOT}/articles/${data.slug}/edit`} tabIndex={-1}>
               <Button className={classes.edit} text="Edit" />
             </Link>

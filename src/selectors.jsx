@@ -22,6 +22,8 @@ const selectors = {
   articlePageLoadingErrorMessage: ({ articlePageLoadingErrorMessage }) =>
     articlePageLoadingErrorMessage,
   articlePageOnLoading: ({ articlePageOnLoading }) => articlePageOnLoading,
+  articlePageDeleteModalWindowIsShowed: ({ articlePageDeleteModalWindowIsShowed }) =>
+    articlePageDeleteModalWindowIsShowed,
   usersAuthenticationLoading: ({ usersAuthenticationLoading }) => usersAuthenticationLoading,
   usersAuthenticationLoadingError: ({ usersAuthenticationLoadingError }) =>
     usersAuthenticationLoadingError,

@@ -8,6 +8,8 @@ import {
   ARTICLE_PAGE_LOADING_ERROR,
   ARTICLE_PAGE_LOADING_START,
   ARTICLE_PAGE_LOADING_END,
+  ARTICLE_PAGE_SHOW_DELETE_MODAL_WINDOW,
+  ARTICLE_PAGE_HIDE_DELETE_MODAL_WINDOW,
   USERS_REGISTRATION_LOADING_ERROR,
   USERS_REGISTRATION_LOADING_START,
   USERS_REGISTRATION_LOADING_END,
@@ -54,6 +56,7 @@ const reducer = (
     articlePageOnLoading: false,
     articlePageLoadingError: false,
     articlePageLoadingErrorMessage: '',
+    articlePageDeleteModalWindowIsShowed: false,
     currentArticlePage: null,
     usersRegistrationLoading: false,
     usersRegistrationLoadingError: false,
@@ -206,6 +209,10 @@ const reducer = (
       return { ...state, editArticlePageTagsInfo: action.tagsInfo };
     case CHANGED_MAX_TAG_INDEX_ON_EDIT_ARTICLE_PAGE:
       return { ...state, editArticlePageMaxTagIndex: action.maxTagIndex };
+    case ARTICLE_PAGE_SHOW_DELETE_MODAL_WINDOW:
+      return { ...state, articlePageDeleteModalWindowIsShowed: true };
+    case ARTICLE_PAGE_HIDE_DELETE_MODAL_WINDOW:
+      return { ...state, articlePageDeleteModalWindowIsShowed: false };
     default:
       return state;
   }

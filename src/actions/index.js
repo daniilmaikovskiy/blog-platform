@@ -16,6 +16,10 @@ import addTagOnEditArticlePage from './add-tag-on-edit-article-page';
 import deleteTagOnEditArticlePage from './delete-tag-on-edit-article-page';
 import changeTagOnEditArticlePage from './change-tag-on-edit-article-page';
 import initEditArticlePage from './init-edit-article-page';
+import {
+  articlePageShowDeleteModalWindow,
+  articlePageHideDeleteModalWindow,
+} from './action-creators';
 
 const actions = {
   articlesLoading,
@@ -36,6 +40,8 @@ const actions = {
   deleteTagOnEditArticlePage,
   changeTagOnEditArticlePage,
   initEditArticlePage,
+  articlePageShowDeleteModalWindow,
+  articlePageHideDeleteModalWindow,
 };
 
 export default actions;

@@ -4,6 +4,7 @@ import {
   ARTICLE_PAGE_LOADING_START,
   ARTICLE_PAGE_LOADING_END,
 } from './action-types';
+import { articlePageHideDeleteModalWindow } from './action-creators';
 
 const articlePageIsReceived = (currentArticlePage) => {
   return {
@@ -37,7 +38,10 @@ const articlePageLoading = (realworldService, slug) => {
 
     realworldService
       .getSingleArticle(slug)
-      .then(({ article }) => dispatch(articlePageIsReceived(article)))
+      .then(({ article }) => {
+        dispatch(articlePageIsReceived(article));
+        dispatch(articlePageHideDeleteModalWindow());
+      })
       .catch((error) => dispatch(articlePageLoadingError(error.message)))
       .finally(() => dispatch(articlePageLoadingEnd()));
   };
