@@ -11,18 +11,19 @@ import Spinner from '../spinner';
 const Articles = () => {
   const dispatch = useDispatch();
   const realworldService = useContext(RealworldServiceContext);
-
-  useEffect(() => {
-    dispatch(actions.articlesLoading(realworldService));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const articleArray = useSelector(selectors.articleArray);
   const totalPages = useSelector(selectors.totalPages);
   const currentPage = useSelector(selectors.page);
   const error = useSelector(selectors.articlesLoadingError);
   const errorMessage = useSelector(selectors.articlesLoadingErrorMessage);
   const loading = useSelector(selectors.articlesOnLoading);
+
+  useEffect(() => {
+    if (!articleArray.length) {
+      dispatch(actions.articlesLoading(realworldService));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (error) {
     return <ErrorAlert description={errorMessage} />;

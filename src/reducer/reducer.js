@@ -43,6 +43,7 @@ import {
   EDITING_ARTICLE_SUCCESS,
   CHANGED_TAGS_INFO_ON_EDIT_ARTICLE_PAGE,
   CHANGED_MAX_TAG_INDEX_ON_EDIT_ARTICLE_PAGE,
+  ARTICLE_LIKED,
 } from '../actions/action-types';
 
 const reducer = (
@@ -213,6 +214,8 @@ const reducer = (
       return { ...state, articlePageDeleteModalWindowIsShowed: true };
     case ARTICLE_PAGE_HIDE_DELETE_MODAL_WINDOW:
       return { ...state, articlePageDeleteModalWindowIsShowed: false };
+    case ARTICLE_LIKED:
+      return { ...state, articles: action.articles, currentArticlePage: action.currentArticlePage };
     default:
       return state;
   }

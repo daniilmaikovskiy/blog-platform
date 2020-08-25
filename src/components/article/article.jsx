@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { enUS } from 'date-fns/locale';
 import { formatWithOptions } from 'date-fns/fp';
-import { Link } from 'react-router-dom';
 import { Tag } from 'antd';
+import PropTypes from 'prop-types';
 import CustomPropTypes from '../../custom-prop-types';
 import {
   wrapper,
@@ -12,21 +14,24 @@ import {
   date,
   titleBlock,
   title,
-  likeBlock,
-  likeNumber,
   tag,
   description,
   tagBlock,
   authorBlockText,
   firstVisible,
 } from './article.module.scss';
-import likeheartImg from '../../img/likeheart.svg';
 import avatarImg from '../../img/avatar.png';
 import { ROOT } from '../../global-settings';
+import LikeButton from '../like-button';
+import actions from '../../actions';
+import RealworldServiceContext from '../realworld-service-context';
 
 const formatDate = (dateObj) => formatWithOptions({ locale: enUS }, 'MMMM d, yyyy')(dateObj);
 
-const Article = ({ data }) => {
+const Article = ({ data, isLogged }) => {
+  const dispatch = useDispatch();
+  const realworldService = useContext(RealworldServiceContext);
+
   const tags = data.tagList.map((el) => (
     <Tag key={el} className={tag}>
       {el}
@@ -41,10 +46,15 @@ const Article = ({ data }) => {
             <Link className={title} to={`${ROOT}/articles/${data.slug}`}>
               {data.title}
             </Link>
-            <div className={likeBlock}>
-              <img src={likeheartImg} alt="like" />
-              <span className={likeNumber}>{data.favoritesCount}</span>
-            </div>
+            <LikeButton
+              favorited={data.favorited}
+              favoritesCount={data.favoritesCount}
+              onClick={() => {
+                if (isLogged) {
+                  dispatch(actions.likeButtonOnClick(realworldService, data.slug, data.favorited));
+                }
+              }}
+            />
           </div>
           <div className={tagBlock}>{tags}</div>
           <div className={description}>{data.description}</div>
@@ -68,6 +78,7 @@ const Article = ({ data }) => {
 
 Article.propTypes = {
   data: CustomPropTypes.articleType.isRequired,
+  isLogged: PropTypes.bool.isRequired,
 };
 
 export default Article;

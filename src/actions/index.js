@@ -20,6 +20,7 @@ import {
   articlePageShowDeleteModalWindow,
   articlePageHideDeleteModalWindow,
 } from './action-creators';
+import likeButtonOnClick from './like-button-on-click';
 
 const actions = {
   articlesLoading,
@@ -42,6 +43,7 @@ const actions = {
   initEditArticlePage,
   articlePageShowDeleteModalWindow,
   articlePageHideDeleteModalWindow,
+  likeButtonOnClick,
 };
 
 export default actions;

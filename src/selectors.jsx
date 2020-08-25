@@ -3,7 +3,10 @@ import Article from './components/article';
 import { NUMBER_OF_ARTICLES_ON_PAGE } from './global-settings';
 
 const selectors = {
-  articleArray: ({ articles }) => articles.map((el) => <Article key={el.slug} data={el} />),
+  articleArray: ({ articles, isLogged }) =>
+    articles.map((el) => {
+      return <Article key={el.slug} data={el} isLogged={isLogged} />;
+    }),
   totalPages: ({ articlesCount }) =>
     articlesCount / NUMBER_OF_ARTICLES_ON_PAGE +
     (articlesCount % NUMBER_OF_ARTICLES_ON_PAGE ? 1 : 0),

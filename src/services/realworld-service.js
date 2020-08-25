@@ -67,4 +67,20 @@ export default class RealworldService {
         Authorization: `Token ${token}`,
       },
     }).then((response) => response.json());
+
+  favoriteArticle = (slug, token) =>
+    fetch(`${this.url}/articles/${slug}/favorite`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    }).then((response) => response.json());
+
+  unfavoriteArticle = (slug, token) =>
+    fetch(`${this.url}/articles/${slug}/favorite`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    }).then((response) => response.json());
 }

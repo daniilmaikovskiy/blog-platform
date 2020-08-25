@@ -8,7 +8,6 @@ import { Tag, Button as AntdButton } from 'antd';
 import marksy from 'marksy';
 import Cookies from 'js-cookie';
 import classes from './article-page.module.scss';
-import likeheartImg from '../../img/likeheart.svg';
 import avatarImg from '../../img/avatar.png';
 import RealworldServiceContext from '../realworld-service-context';
 import actions from '../../actions';
@@ -17,6 +16,7 @@ import Spinner from '../spinner';
 import { ROOT, USER_DATA_COOKIE_NAME } from '../../global-settings';
 import selectors from '../../selectors';
 import Button from '../button';
+import LikeButton from '../like-button';
 
 const formatDate = (dateObj) => formatWithOptions({ locale: enUS }, 'MMMM d, yyyy')(dateObj);
 
@@ -89,10 +89,11 @@ const ArticlePage = ({ slug, history }) => {
             <Link className={classes.title} to={`${ROOT}/articles/${data.slug}/`}>
               {data.title}
             </Link>
-            <div className={classes.likeBlock}>
-              <img src={likeheartImg} alt="like" />
-              <span className={classes.likeNumber}>{data.favoritesCount}</span>
-            </div>
+            <LikeButton
+              favorited={data.favorited}
+              favoritesCount={data.favoritesCount}
+              onClick={() => dispatch(actions.likeButtonOnClick(realworldService, data.slug))}
+            />
           </div>
           <div className={classes.tagBlock}>{tags}</div>
           <div className={classes.description}>{data.description}</div>
