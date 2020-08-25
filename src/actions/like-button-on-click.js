@@ -25,49 +25,59 @@ const likeButtonOnClick = (realworldService, slug, isFavorited) => {
 
     const { articles, currentArticlePage } = getState();
     const targetArticleIndex = articles.findIndex((el) => el.slug === slug);
+    const articlesHaveTarget = targetArticleIndex !== -1;
     const currentArticlePageIsTarget =
       currentArticlePage !== null && currentArticlePage.slug === slug;
 
     let newArticles = articles;
     let newCurrentArticlePage = currentArticlePage;
+    let articleForInserting = null;
+
+    if (articlesHaveTarget) {
+      articleForInserting = {
+        ...articles[targetArticleIndex],
+        favorited: !isFavorited,
+        favoritesCount: articles[targetArticleIndex].favoritesCount + (isFavorited ? -1 : 1),
+      };
+    } else if (currentArticlePageIsTarget) {
+      articleForInserting = {
+        ...currentArticlePage,
+        favorited: !isFavorited,
+        favoritesCount: currentArticlePage.favoritesCount + (isFavorited ? -1 : 1),
+      };
+    }
+
+    const insertLikedArticle = (article = articleForInserting) => {
+      if (article === null) {
+        return;
+      }
+
+      if (articlesHaveTarget) {
+        newArticles = [
+          ...articles.slice(0, targetArticleIndex),
+          article,
+          ...articles.slice(targetArticleIndex + 1),
+        ];
+      }
+
+      if (currentArticlePageIsTarget) {
+        newCurrentArticlePage = { ...article };
+      }
+
+      dispatch(articleLiked(newArticles, newCurrentArticlePage));
+    };
+
+    insertLikedArticle();
 
     if (isFavorited) {
       realworldService
         .unfavoriteArticle(slug, token)
-        .then(({ article }) => {
-          if (targetArticleIndex !== -1) {
-            newArticles = [
-              ...articles.slice(0, targetArticleIndex),
-              article,
-              ...articles.slice(targetArticleIndex + 1),
-            ];
-          }
-
-          if (currentArticlePageIsTarget) {
-            newCurrentArticlePage = article;
-          }
-
-          dispatch(articleLiked(newArticles, newCurrentArticlePage));
-        })
+        .then(({ article }) => insertLikedArticle(article))
         .catch(() => {});
     } else {
       realworldService
         .favoriteArticle(slug, token)
-        .then(({ article }) => {
-          if (targetArticleIndex !== -1) {
-            newArticles = [
-              ...articles.slice(0, targetArticleIndex),
-              article,
-              ...articles.slice(targetArticleIndex + 1),
-            ];
-          }
-
-          if (currentArticlePageIsTarget) {
-            newCurrentArticlePage = article;
-          }
-
-          dispatch(articleLiked(newArticles, newCurrentArticlePage));
-        })
+        .then(({ article }) => insertLikedArticle(article))
         .catch(() => {});
     }
   };
