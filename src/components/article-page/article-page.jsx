@@ -92,7 +92,11 @@ const ArticlePage = ({ slug, history }) => {
             <LikeButton
               favorited={data.favorited}
               favoritesCount={data.favoritesCount}
-              onClick={() => dispatch(actions.likeButtonOnClick(realworldService, data.slug))}
+              onClick={() =>
+                dispatch(
+                  actions.likeButtonOnClick(realworldService, data.slug, data.favorited, true)
+                )
+              }
             />
           </div>
           <div className={classes.tagBlock}>{tags}</div>

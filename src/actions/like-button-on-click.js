@@ -11,7 +11,7 @@ const articleLiked = (articles, currentArticlePage) => {
   };
 };
 
-const likeButtonOnClick = (realworldService, slug, isFavorited) => {
+const likeButtonOnClick = (realworldService, slug, isFavorited, isCurrentArticlePage = false) => {
   return (dispatch, getState) => {
     let token;
 
@@ -26,24 +26,20 @@ const likeButtonOnClick = (realworldService, slug, isFavorited) => {
     const { articles, currentArticlePage } = getState();
     const targetArticleIndex = articles.findIndex((el) => el.slug === slug);
     const articlesHaveTarget = targetArticleIndex !== -1;
-    const currentArticlePageIsTarget =
-      currentArticlePage !== null && currentArticlePage.slug === slug;
 
-    let newArticles = articles;
-    let newCurrentArticlePage = currentArticlePage;
     let articleForInserting = null;
 
-    if (articlesHaveTarget) {
-      articleForInserting = {
-        ...articles[targetArticleIndex],
-        favorited: !isFavorited,
-        favoritesCount: articles[targetArticleIndex].favoritesCount + (isFavorited ? -1 : 1),
-      };
-    } else if (currentArticlePageIsTarget) {
+    if (isCurrentArticlePage) {
       articleForInserting = {
         ...currentArticlePage,
         favorited: !isFavorited,
         favoritesCount: currentArticlePage.favoritesCount + (isFavorited ? -1 : 1),
+      };
+    } else {
+      articleForInserting = {
+        ...articles[targetArticleIndex],
+        favorited: !isFavorited,
+        favoritesCount: articles[targetArticleIndex].favoritesCount + (isFavorited ? -1 : 1),
       };
     }
 
@@ -51,6 +47,8 @@ const likeButtonOnClick = (realworldService, slug, isFavorited) => {
       if (article === null) {
         return;
       }
+
+      let newArticles = articles;
 
       if (articlesHaveTarget) {
         newArticles = [
@@ -60,11 +58,7 @@ const likeButtonOnClick = (realworldService, slug, isFavorited) => {
         ];
       }
 
-      if (currentArticlePageIsTarget) {
-        newCurrentArticlePage = { ...article };
-      }
-
-      dispatch(articleLiked(newArticles, newCurrentArticlePage));
+      dispatch(articleLiked(newArticles, article));
     };
 
     insertLikedArticle();
