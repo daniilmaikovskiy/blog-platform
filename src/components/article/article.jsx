@@ -43,7 +43,7 @@ const Article = ({ data, isLogged }) => {
       <section className={firstVisible}>
         <section className={main}>
           <div className={titleBlock}>
-            <Link className={title} to={`${ROOT}/articles/${data.slug}`}>
+            <Link className={title} to={`${ROOT}/articles/${data.slug}/`}>
               {data.title}
             </Link>
             <LikeButton

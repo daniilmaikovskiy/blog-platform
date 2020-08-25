@@ -33,7 +33,16 @@ const articlePageLoadingEnd = () => {
 };
 
 const articlePageLoading = (realworldService, slug) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const { articles } = getState();
+    const targetArticleIndex = articles.findIndex((el) => el.slug === slug);
+
+    if (targetArticleIndex !== -1) {
+      dispatch(articlePageIsReceived(articles[targetArticleIndex]));
+      dispatch(articlePageHideDeleteModalWindow());
+      return;
+    }
+
     dispatch(articlePageLoadingStart());
 
     realworldService
