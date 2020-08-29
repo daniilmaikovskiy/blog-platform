@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Checkbox, Button } from 'antd';
+import { Button } from 'antd';
 import { Link, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,7 @@ import actions from '../../actions';
 import ErrorAlert from '../error-alert';
 import Spinner from '../spinner';
 import selectors from '../../selectors';
+import Checkbox from '../checkbox';
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -110,9 +111,9 @@ const SignUp = () => {
       {errors.repeatPassword && (
         <span className={classes.errorMessage}>{errorMessages.get('repeatPassword')}</span>
       )}
-      <label className={classes.checkbox} htmlFor="i-agree">
-        <Checkbox defaultChecked name="i-agree" />
-        <span className={classes.checkboxText} id="i-agree">
+      <label className={classes.checkbox} htmlFor="checkbox">
+        <Checkbox name="i-agree" id="checkbox" />
+        <span className={classes.checkboxText}>
           I agree to the processing of my personal information
         </span>
       </label>

@@ -44,16 +44,17 @@
   display: flex;
   margin-top: 32px;
   margin-bottom: 20px;
+  cursor: pointer;
+}
 
-  & > .checkboxText {
-    margin-left: 8px;
-    font-size: 14px;
-    line-height: 22px;
-    color: #595959;
+.checkboxText {
+  margin-left: 8px;
+  font-size: 14px;
+  line-height: 22px;
+  color: #595959;
 
-    &:hover {
-      color: #1890ff;
-    }
+  &:hover {
+    color: #1890ff;
   }
 }
 
