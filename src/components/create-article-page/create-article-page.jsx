@@ -16,19 +16,12 @@ const CreateArticlePage = () => {
   const realworldService = useContext(RealworldServiceContext);
 
   const tagsInfo = useSelector(selectors.createArticlePageTagsInfo);
-  const addTag = () => dispatch(actions.addTagOnCreateArticlePage());
-  const deleteTag = (key) => dispatch(actions.deleteTagOnCreateArticlePage(key));
-  const changeTag = (key, value) => dispatch(actions.changeTagOnCreateArticlePage(key, value));
-
   const error = useSelector(selectors.creatingArticleLoadingError);
   const errorMessage = useSelector(selectors.creatingArticleErrorMessage);
   const loading = useSelector(selectors.creatingArticleLoading);
   const success = useSelector(selectors.creatingArticleSuccess);
   const isLogged = useSelector(selectors.isLogged);
-
-  if (!Cookies.get(USER_DATA_COOKIE_NAME) && !isLogged) {
-    return <Redirect to={`${ROOT}/sign-in`} />;
-  }
+  const currentArticlePage = useSelector(selectors.currentArticlePage);
 
   if (error) {
     return <ErrorAlert description={errorMessage} />;
@@ -38,11 +31,22 @@ const CreateArticlePage = () => {
     return <Spinner />;
   }
 
+  if (!Cookies.get(USER_DATA_COOKIE_NAME) && !isLogged) {
+    return <Redirect to={`${ROOT}/sign-in`} />;
+  }
+
+  if (success) {
+    return <Redirect to={`${ROOT}/articles/${currentArticlePage.slug}/`} />;
+  }
+
   const onSubmit = ({ title, body, description }) => {
     const tagList = Array.from(tagsInfo.keys()).map((key) => tagsInfo.get(key));
 
     dispatch(actions.creatingArticle(realworldService, { title, description, body, tagList }));
   };
+  const addTag = () => dispatch(actions.addTagOnCreateArticlePage());
+  const deleteTag = (key) => dispatch(actions.deleteTagOnCreateArticlePage(key));
+  const changeTag = (key, value) => dispatch(actions.changeTagOnCreateArticlePage(key, value));
 
   return (
     <div className={classes.wrapper}>
@@ -54,7 +58,6 @@ const CreateArticlePage = () => {
         changeTag={changeTag}
         onSubmit={onSubmit}
       />
-      {success && <h3 className={classes.success}>Article created</h3>}
     </div>
   );
 };

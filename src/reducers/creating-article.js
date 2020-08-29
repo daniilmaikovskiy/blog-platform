@@ -3,6 +3,7 @@ import {
   CREATING_ARTICLE_LOADING_START,
   CREATING_ARTICLE_LOADING_END,
   CREATING_ARTICLE_SUCCESS,
+  CREATING_ARTICLE_DEFAULT_STATE,
 } from '../actions/action-types';
 
 const initialState = {
@@ -35,6 +36,8 @@ const creatingArticle = (state = initialState, action) => {
         ...state,
         success: true,
       };
+    case CREATING_ARTICLE_DEFAULT_STATE:
+      return { ...initialState };
     default:
       return state;
   }

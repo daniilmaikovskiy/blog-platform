@@ -17,7 +17,7 @@ const selectors = {
 
   createArticlePageTagsInfo: ({ createArticlePage: { tagsInfo } }) => new Map(tagsInfo),
 
-  editArticlePageTagsInfo: ({ createArticlePage: { tagsInfo } }) => new Map(tagsInfo),
+  editArticlePageTagsInfo: ({ editArticlePage: { tagsInfo } }) => new Map(tagsInfo),
 
   currentArticlePage: ({ articlePage: { current } }) => current,
   articlePageLoadingError: ({ articlePage: { error } }) => error,

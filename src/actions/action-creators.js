@@ -9,6 +9,7 @@ import {
   ARTICLE_PAGE_HIDE_DELETE_MODAL_WINDOW,
   DELETED_ARTICLE,
   USER_IS_LOGGED,
+  CREATING_ARTICLE_DEFAULT_STATE,
 } from './action-types';
 
 export const changedTagsInfoOnCreateArticlePage = (tagsInfo) => {
@@ -77,6 +78,12 @@ export const userIsLogged = () => {
   };
 };
 
+export const creatingArticleDefaultState = () => {
+  return {
+    type: CREATING_ARTICLE_DEFAULT_STATE,
+  };
+};
+
 const actionCreators = {
   changedTagsInfoOnCreateArticlePage,
   changedMaxTagIndexOnCreateArticlePage,
@@ -88,6 +95,7 @@ const actionCreators = {
   userIsLogged,
   articlesIsChanged,
   articlePageIsChanged,
+  creatingArticleDefaultState,
 };
 
 export default actionCreators;

@@ -3,7 +3,11 @@ import {
   ARTICLE_PAGE_LOADING_START,
   ARTICLE_PAGE_LOADING_END,
 } from './action-types';
-import { articlePageHideDeleteModalWindow, articlePageIsChanged } from './action-creators';
+import {
+  articlePageHideDeleteModalWindow,
+  articlePageIsChanged,
+  creatingArticleDefaultState,
+} from './action-creators';
 
 const articlePageLoadingError = (message) => {
   return {
@@ -26,12 +30,21 @@ const articlePageLoadingEnd = () => {
 
 const articlePageLoading = (realworldService, slug) => {
   return (dispatch, getState) => {
-    const { data: articles } = getState().articles;
+    dispatch(articlePageHideDeleteModalWindow());
+    dispatch(creatingArticleDefaultState());
+
+    const {
+      articles: { data: articles },
+      articlePage: { current },
+    } = getState();
     const targetArticleIndex = articles.findIndex((el) => el.slug === slug);
+
+    if (current !== null && current.slug === slug) {
+      return;
+    }
 
     if (targetArticleIndex !== -1) {
       dispatch(articlePageIsChanged(articles[targetArticleIndex]));
-      dispatch(articlePageHideDeleteModalWindow());
       return;
     }
 
@@ -39,10 +52,7 @@ const articlePageLoading = (realworldService, slug) => {
 
     realworldService
       .getSingleArticle(slug)
-      .then(({ article }) => {
-        dispatch(articlePageIsChanged(article));
-        dispatch(articlePageHideDeleteModalWindow());
-      })
+      .then(({ article }) => dispatch(articlePageIsChanged(article)))
       .catch((error) => dispatch(articlePageLoadingError(error.message)))
       .finally(() => dispatch(articlePageLoadingEnd()));
   };

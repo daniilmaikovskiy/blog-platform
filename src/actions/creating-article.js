@@ -7,6 +7,7 @@ import {
 } from './action-types';
 import { USER_DATA_COOKIE_NAME } from '../global-settings';
 import logouting from './logouting';
+import { articlePageIsChanged } from './action-creators';
 
 const creatingArticleLoadingError = (message) => {
   return {
@@ -51,7 +52,8 @@ const creatingArticle = (realworldService, { title, description, body, tagList }
 
     realworldService
       .createArticle(json, token)
-      .then(() => {
+      .then(({ article }) => {
+        dispatch(articlePageIsChanged(article));
         dispatch(creatingArticleSuccess());
       })
       .catch((error) => dispatch(creatingArticleLoadingError(error.message)))
