@@ -3,6 +3,7 @@ import {
   EDITING_ARTICLE_LOADING_START,
   EDITING_ARTICLE_LOADING_END,
   EDITING_ARTICLE_SUCCESS,
+  EDITING_ARTICLE_DEFAULT_STATE,
 } from '../actions/action-types';
 
 const initialState = {
@@ -35,6 +36,8 @@ const editingArticle = (state = initialState, action) => {
         ...state,
         success: true,
       };
+    case EDITING_ARTICLE_DEFAULT_STATE:
+      return { ...initialState };
     default:
       return state;
   }

@@ -7,6 +7,7 @@ import {
   articlePageHideDeleteModalWindow,
   articlePageIsChanged,
   creatingArticleDefaultState,
+  editingArticleDefaultState,
 } from './action-creators';
 
 const articlePageLoadingError = (message) => {
@@ -32,6 +33,7 @@ const articlePageLoading = (realworldService, slug) => {
   return (dispatch, getState) => {
     dispatch(articlePageHideDeleteModalWindow());
     dispatch(creatingArticleDefaultState());
+    dispatch(editingArticleDefaultState());
 
     const {
       articles: { data: articles },

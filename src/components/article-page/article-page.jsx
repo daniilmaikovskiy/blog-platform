@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { enUS } from 'date-fns/locale';
 import { formatWithOptions } from 'date-fns/fp';
 import { Link, withRouter } from 'react-router-dom';
-import { Tag, Button as AntdButton } from 'antd';
+import { Tag } from 'antd';
 import marksy from 'marksy';
 import Cookies from 'js-cookie';
 import classes from './article-page.module.scss';
@@ -17,6 +17,7 @@ import { ROOT, USER_DATA_COOKIE_NAME } from '../../global-settings';
 import selectors from '../../selectors';
 import Button from '../button';
 import LikeButton from '../like-button';
+import ModalWindow from '../modal-window';
 
 const formatDate = (dateObj) => formatWithOptions({ locale: enUS }, 'MMMM d, yyyy')(dateObj);
 
@@ -25,6 +26,11 @@ const ArticlePage = ({ slug, history }) => {
   const realworldService = useContext(RealworldServiceContext);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const compile = useCallback(marksy({ createElement }), []);
+
+  useEffect(() => {
+    dispatch(actions.articlePageLoading(realworldService, slug));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const data = useSelector(selectors.currentArticlePage);
   const error = useSelector(selectors.articlePageLoadingError);
@@ -36,11 +42,6 @@ const ArticlePage = ({ slug, history }) => {
   const deletingArticleLoading = useSelector(selectors.deletingArticleLoading);
   const isClickedDelete = useSelector(selectors.articlePageDeleteModalWindowIsShowed);
 
-  useEffect(() => {
-    dispatch(actions.articlePageLoading(realworldService, slug));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   let username;
 
   if (isLogged) {
@@ -49,7 +50,7 @@ const ArticlePage = ({ slug, history }) => {
       username = user.username;
     } catch {
       dispatch(actions.logouting());
-      return null;
+      username = null;
     }
   }
 
@@ -71,7 +72,7 @@ const ArticlePage = ({ slug, history }) => {
 
   const buttonsClasses = [classes.buttons];
 
-  if (!isLogged || username !== data.author.username) {
+  if (username !== data.author.username) {
     buttonsClasses.push(classes.hidden);
   }
 
@@ -124,33 +125,13 @@ const ArticlePage = ({ slug, history }) => {
               }}
             />
             {isClickedDelete && (
-              <div className={classes.modal}>
-                <div className={classes.modalAlert}>
-                  <div className={classes.alertSymbol}>!</div>
-                  <div className={classes.alertMessage}>Are you sure to delete this article?</div>
-                </div>
-                <div className={classes.modalButtons}>
-                  <AntdButton
-                    size="small"
-                    onClick={() => {
-                      dispatch(actions.articlePageHideDeleteModalWindow());
-                    }}
-                  >
-                    No
-                  </AntdButton>
-                  <AntdButton
-                    className={classes.modalButtonYes}
-                    size="small"
-                    type="primary"
-                    onClick={() => {
-                      dispatch(actions.deletingArticle(realworldService, slug));
-                      history.push(`${ROOT}/articles/`);
-                    }}
-                  >
-                    Yes
-                  </AntdButton>
-                </div>
-              </div>
+              <ModalWindow
+                onClickNo={() => dispatch(actions.articlePageHideDeleteModalWindow())}
+                onClickYes={() => {
+                  dispatch(actions.deletingArticle(realworldService, slug));
+                  history.push(`${ROOT}/articles/`);
+                }}
+              />
             )}
             <Link to={`${ROOT}/articles/${data.slug}/edit`} tabIndex={-1}>
               <Button className={classes.edit} text="Edit" />

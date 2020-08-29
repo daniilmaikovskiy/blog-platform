@@ -10,6 +10,7 @@ import {
   DELETED_ARTICLE,
   USER_IS_LOGGED,
   CREATING_ARTICLE_DEFAULT_STATE,
+  EDITING_ARTICLE_DEFAULT_STATE,
 } from './action-types';
 
 export const changedTagsInfoOnCreateArticlePage = (tagsInfo) => {
@@ -84,6 +85,12 @@ export const creatingArticleDefaultState = () => {
   };
 };
 
+export const editingArticleDefaultState = () => {
+  return {
+    type: EDITING_ARTICLE_DEFAULT_STATE,
+  };
+};
+
 const actionCreators = {
   changedTagsInfoOnCreateArticlePage,
   changedMaxTagIndexOnCreateArticlePage,
@@ -96,6 +103,7 @@ const actionCreators = {
   articlesIsChanged,
   articlePageIsChanged,
   creatingArticleDefaultState,
+  editingArticleDefaultState,
 };
 
 export default actionCreators;
