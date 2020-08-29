@@ -3,6 +3,7 @@ import { Button } from 'antd';
 import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
 import classes from './edit-profile.module.scss';
 import TextInput from '../text-input';
 import {
@@ -11,6 +12,7 @@ import {
   PASSWORD_RULES,
   USERNAME_RULES,
   URL_RULES,
+  USER_DATA_COOKIE_NAME,
 } from '../../global-settings';
 import Helper from '../../helper';
 import RealworldServiceContext from '../realworld-service-context';
@@ -54,8 +56,8 @@ const EditProfile = () => {
     imageClasses.push(classes.textInputError);
   }
 
-  if (!isLogged) {
-    return <Redirect to={`${ROOT}/`} />;
+  if (!Cookies.get(USER_DATA_COOKIE_NAME) && !isLogged) {
+    return <Redirect to={`${ROOT}/sign-in`} />;
   }
 
   if (error) {

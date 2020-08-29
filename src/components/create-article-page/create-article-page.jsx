@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import classes from './create-article-page.module.scss';
 import ArticleForm from '../article-form';
 import selectors from '../../selectors';
@@ -8,7 +9,7 @@ import actions from '../../actions';
 import ErrorAlert from '../error-alert';
 import Spinner from '../spinner';
 import RealworldServiceContext from '../realworld-service-context';
-import { ROOT } from '../../global-settings';
+import { ROOT, USER_DATA_COOKIE_NAME } from '../../global-settings';
 
 const CreateArticlePage = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const CreateArticlePage = () => {
   const success = useSelector(selectors.creatingArticleSuccess);
   const isLogged = useSelector(selectors.isLogged);
 
-  if (!isLogged) {
+  if (!Cookies.get(USER_DATA_COOKIE_NAME) && !isLogged) {
     return <Redirect to={`${ROOT}/sign-in`} />;
   }
 

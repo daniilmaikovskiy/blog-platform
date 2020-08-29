@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import classes from './edit-article-page.module.scss';
 import ArticleForm from '../article-form';
 import selectors from '../../selectors';
@@ -9,7 +10,7 @@ import actions from '../../actions';
 import ErrorAlert from '../error-alert';
 import Spinner from '../spinner';
 import RealworldServiceContext from '../realworld-service-context';
-import { ROOT } from '../../global-settings';
+import { ROOT, USER_DATA_COOKIE_NAME } from '../../global-settings';
 
 const EditArticlePage = ({ slug }) => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const EditArticlePage = ({ slug }) => {
   const isLogged = useSelector(selectors.isLogged);
   const tagsInfo = useSelector(selectors.editArticlePageTagsInfo);
 
-  if (!isLogged) {
+  if (!Cookies.get(USER_DATA_COOKIE_NAME) && !isLogged) {
     return <Redirect to={`${ROOT}/sign-in`} />;
   }
 
