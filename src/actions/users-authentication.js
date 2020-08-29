@@ -4,9 +4,9 @@ import {
   USERS_AUTHENTICATION_LOADING_START,
   USERS_AUTHENTICATION_LOADING_END,
   USERS_AUTHENTICATION_ERRORS,
-  USERS_AUTHENTICATION_SUCCESS,
 } from './action-types';
 import { USER_DATA_COOKIE_NAME, USER_DATA_COOKIE_EXPIRES } from '../global-settings';
+import { userIsLogged } from './action-creators';
 
 const usersAuthenticationErrors = (errors) => {
   return {
@@ -34,12 +34,6 @@ const usersAuthenticationLoadingEnd = () => {
   };
 };
 
-const usersAuthenticationSuccess = () => {
-  return {
-    type: USERS_AUTHENTICATION_SUCCESS,
-  };
-};
-
 const usersAuthentication = (realworldService, data) => {
   return (dispatch) => {
     dispatch(usersAuthenticationLoadingStart());
@@ -60,7 +54,7 @@ const usersAuthentication = (realworldService, data) => {
             expires: USER_DATA_COOKIE_EXPIRES,
             sameSite: 'strict',
           });
-          dispatch(usersAuthenticationSuccess());
+          dispatch(userIsLogged());
         }
         if (json.errors) {
           dispatch(usersAuthenticationErrors(json.errors));

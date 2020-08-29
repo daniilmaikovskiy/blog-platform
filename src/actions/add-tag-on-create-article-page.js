@@ -5,16 +5,13 @@ import {
 
 const addTagOnCreateArticlePage = () => {
   return (dispatch, getState) => {
-    const {
-      createArticlePageTagsInfo: tagsInfo,
-      createArticlePageMaxTagIndex: maxIndex,
-    } = getState();
+    const { tagsInfo, maxTagIndex } = getState().createArticlePage;
     const newTagsInfo = new Map(tagsInfo);
 
-    newTagsInfo.set(maxIndex, '');
+    newTagsInfo.set(maxTagIndex, '');
 
     dispatch(changedTagsInfoOnCreateArticlePage(Array.from(newTagsInfo.entries())));
-    dispatch(changedMaxTagIndexOnCreateArticlePage(maxIndex + 1));
+    dispatch(changedMaxTagIndexOnCreateArticlePage(maxTagIndex + 1));
   };
 };
 

@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import reduxThunk from 'redux-thunk';
 import App from './components/app';
-import reducer from './reducer/reducer';
+import reducer from './reducers';
 import RealworldServiceContext from './components/realworld-service-context';
 import RealworldService from './services/realworld-service';
 

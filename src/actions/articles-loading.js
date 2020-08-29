@@ -1,15 +1,15 @@
 import {
-  ARTICLES_IS_RECEIVED,
+  ARTICLES_COUNT_IS_CHANGED,
   ARTICLES_LOADING_ERROR,
   ARTICLES_LOADING_START,
   ARTICLES_LOADING_END,
 } from './action-types';
+import { articlesIsChanged } from './action-creators';
 
-const articlesIsReceived = (articlesCount, articles) => {
+const articlesCountIsChanged = (articlesCount) => {
   return {
-    type: ARTICLES_IS_RECEIVED,
+    type: ARTICLES_COUNT_IS_CHANGED,
     articlesCount,
-    articles,
   };
 };
 
@@ -38,7 +38,10 @@ const articlesLoading = (realworldService, page = 1) => {
 
     realworldService
       .getArticles(page)
-      .then(({ articlesCount, articles }) => dispatch(articlesIsReceived(articlesCount, articles)))
+      .then(({ articlesCount, articles }) => {
+        dispatch(articlesIsChanged(articles));
+        dispatch(articlesCountIsChanged(articlesCount));
+      })
       .catch((error) => dispatch(articlesLoadingError(error.message)))
       .finally(() => dispatch(articlesLoadingEnd()));
   };

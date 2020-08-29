@@ -1,5 +1,5 @@
 export const NUMBER_OF_ARTICLES_ON_PAGE = 5;
-export const ROOT = '/blog-platform';
+export const ROOT = '';
 
 const EMAIL_PATTERN = new RegExp(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/);
 const URL_PATTERN = new RegExp(

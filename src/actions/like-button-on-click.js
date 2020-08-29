@@ -1,15 +1,7 @@
 import Cookies from 'js-cookie';
-import { ARTICLE_LIKED } from './action-types';
 import { USER_DATA_COOKIE_NAME } from '../global-settings';
 import logouting from './logouting';
-
-const articleLiked = (articles, currentArticlePage) => {
-  return {
-    type: ARTICLE_LIKED,
-    articles,
-    currentArticlePage,
-  };
-};
+import { articlesIsChanged, articlePageIsChanged } from './action-creators';
 
 const likeButtonOnClick = (realworldService, slug, isFavorited, isCurrentArticlePage = false) => {
   return (dispatch, getState) => {
@@ -23,7 +15,10 @@ const likeButtonOnClick = (realworldService, slug, isFavorited, isCurrentArticle
       return;
     }
 
-    const { articles, currentArticlePage } = getState();
+    const {
+      articles: { data: articles },
+      articlePage: { current },
+    } = getState();
     const targetArticleIndex = articles.findIndex((el) => el.slug === slug);
     const articlesHaveTarget = targetArticleIndex !== -1;
 
@@ -31,9 +26,9 @@ const likeButtonOnClick = (realworldService, slug, isFavorited, isCurrentArticle
 
     if (isCurrentArticlePage) {
       articleForInserting = {
-        ...currentArticlePage,
+        ...current,
         favorited: !isFavorited,
-        favoritesCount: currentArticlePage.favoritesCount + (isFavorited ? -1 : 1),
+        favoritesCount: current.favoritesCount + (isFavorited ? -1 : 1),
       };
     } else {
       articleForInserting = {
@@ -58,7 +53,8 @@ const likeButtonOnClick = (realworldService, slug, isFavorited, isCurrentArticle
         ];
       }
 
-      dispatch(articleLiked(newArticles, article));
+      dispatch(articlesIsChanged(newArticles));
+      dispatch(articlePageIsChanged(article));
     };
 
     insertLikedArticle();

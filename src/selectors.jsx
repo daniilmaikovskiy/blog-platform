@@ -1,57 +1,60 @@
 import React from 'react';
 import Article from './components/article';
-import { NUMBER_OF_ARTICLES_ON_PAGE } from './global-settings';
+import { NUMBER_OF_ARTICLES_ON_PAGE as ARTICLES_ON_PAGE } from './global-settings';
 
 const selectors = {
-  articleArray: ({ articles, isLogged }) =>
-    articles.map((el) => {
-      return <Article key={el.slug} data={el} isLogged={isLogged} />;
-    }),
-  totalPages: ({ articlesCount }) =>
-    articlesCount / NUMBER_OF_ARTICLES_ON_PAGE +
-    (articlesCount % NUMBER_OF_ARTICLES_ON_PAGE ? 1 : 0),
-  page: ({ page }) => page,
-  usersRegistrationLoadingError: ({ usersRegistrationLoadingError }) =>
-    usersRegistrationLoadingError,
-  usersRegistrationErrorMessage: ({ usersRegistrationErrorMessage }) =>
-    usersRegistrationErrorMessage,
-  usersRegistrationLoading: ({ usersRegistrationLoading }) => usersRegistrationLoading,
-  usersRegistrationErrors: ({ usersRegistrationErrors }) => usersRegistrationErrors,
-  articlesLoadingError: ({ articlesLoadingError }) => articlesLoadingError,
-  articlesLoadingErrorMessage: ({ articlesLoadingErrorMessage }) => articlesLoadingErrorMessage,
-  articlesOnLoading: ({ articlesOnLoading }) => articlesOnLoading,
-  currentArticlePage: ({ currentArticlePage }) => currentArticlePage,
-  articlePageLoadingError: ({ articlePageLoadingError }) => articlePageLoadingError,
-  articlePageLoadingErrorMessage: ({ articlePageLoadingErrorMessage }) =>
-    articlePageLoadingErrorMessage,
-  articlePageOnLoading: ({ articlePageOnLoading }) => articlePageOnLoading,
-  articlePageDeleteModalWindowIsShowed: ({ articlePageDeleteModalWindowIsShowed }) =>
-    articlePageDeleteModalWindowIsShowed,
-  usersAuthenticationLoading: ({ usersAuthenticationLoading }) => usersAuthenticationLoading,
-  usersAuthenticationLoadingError: ({ usersAuthenticationLoadingError }) =>
-    usersAuthenticationLoadingError,
-  usersAuthenticationErrorMessage: ({ usersAuthenticationErrorMessage }) =>
-    usersAuthenticationErrorMessage,
-  usersAuthenticationErrors: ({ usersAuthenticationErrors }) => usersAuthenticationErrors,
-  usersEditingLoading: ({ usersEditingLoading }) => usersEditingLoading,
-  usersEditingLoadingError: ({ usersEditingLoadingError }) => usersEditingLoadingError,
-  usersEditingErrorMessage: ({ usersEditingErrorMessage }) => usersEditingErrorMessage,
-  usersEditingErrors: ({ usersEditingErrors }) => usersEditingErrors,
-  usersEditingSuccessObj: ({ usersEditingSuccessObj }) => usersEditingSuccessObj,
-  creatingArticleLoading: ({ creatingArticleLoading }) => creatingArticleLoading,
-  creatingArticleLoadingError: ({ creatingArticleLoadingError }) => creatingArticleLoadingError,
-  creatingArticleErrorMessage: ({ creatingArticleErrorMessage }) => creatingArticleErrorMessage,
-  creatingArticleSuccess: ({ creatingArticleSuccess }) => creatingArticleSuccess,
+  articleArray: ({ articles: { data }, isLogged }) =>
+    data.map((el) => <Article key={el.slug} data={el} isLogged={isLogged} />),
+
+  totalPages: ({ articles: { count } }) => Math.ceil(count / ARTICLES_ON_PAGE),
+
+  page: ({ articles: { page } }) => page,
+  articlesLoadingError: ({ articles: { error } }) => error,
+  articlesLoadingErrorMessage: ({ articles: { errorMessage } }) => errorMessage,
+  articlesOnLoading: ({ articles: { loading } }) => loading,
+
   isLogged: ({ isLogged }) => isLogged,
-  createArticlePageTagsInfo: ({ createArticlePageTagsInfo }) => new Map(createArticlePageTagsInfo),
-  editArticlePageTagsInfo: ({ editArticlePageTagsInfo }) => new Map(editArticlePageTagsInfo),
-  deletingArticleLoading: ({ deletingArticleLoading }) => deletingArticleLoading,
-  deletingArticleLoadingError: ({ deletingArticleLoadingError }) => deletingArticleLoadingError,
-  deletingArticleErrorMessage: ({ deletingArticleErrorMessage }) => deletingArticleErrorMessage,
-  editingArticleLoading: ({ editingArticleLoading }) => editingArticleLoading,
-  editingArticleLoadingError: ({ editingArticleLoadingError }) => editingArticleLoadingError,
-  editingArticleErrorMessage: ({ editingArticleErrorMessage }) => editingArticleErrorMessage,
-  editingArticleSuccess: ({ editingArticleSuccess }) => editingArticleSuccess,
+
+  createArticlePageTagsInfo: ({ createArticlePage: { tagsInfo } }) => new Map(tagsInfo),
+
+  editArticlePageTagsInfo: ({ createArticlePage: { tagsInfo } }) => new Map(tagsInfo),
+
+  currentArticlePage: ({ articlePage: { current } }) => current,
+  articlePageLoadingError: ({ articlePage: { error } }) => error,
+  articlePageLoadingErrorMessage: ({ articlePage: { errorMessage } }) => errorMessage,
+  articlePageOnLoading: ({ articlePage: { loading } }) => loading,
+  articlePageDeleteModalWindowIsShowed: ({ articlePage: { deleteModalWindowIsShowed } }) =>
+    deleteModalWindowIsShowed,
+
+  usersRegistrationLoadingError: ({ usersRegistration: { error } }) => error,
+  usersRegistrationErrorMessage: ({ usersRegistration: { errorMessage } }) => errorMessage,
+  usersRegistrationLoading: ({ usersRegistration: { loading } }) => loading,
+  usersRegistrationErrors: ({ usersRegistration: { errors } }) => errors,
+
+  usersAuthenticationLoading: ({ usersAuthentication: { loading } }) => loading,
+  usersAuthenticationLoadingError: ({ usersAuthentication: { error } }) => error,
+  usersAuthenticationErrorMessage: ({ usersAuthentication: { errorMessage } }) => errorMessage,
+  usersAuthenticationErrors: ({ usersAuthentication: { errors } }) => errors,
+
+  usersEditingLoading: ({ usersEditing: { loading } }) => loading,
+  usersEditingLoadingError: ({ usersEditing: { error } }) => error,
+  usersEditingErrorMessage: ({ usersEditing: { errorMessage } }) => errorMessage,
+  usersEditingErrors: ({ usersEditing: { errors } }) => errors,
+  usersEditingSuccessObj: ({ usersEditing: { successObj } }) => successObj,
+
+  creatingArticleLoading: ({ creatingArticle: { loading } }) => loading,
+  creatingArticleLoadingError: ({ creatingArticle: { error } }) => error,
+  creatingArticleErrorMessage: ({ creatingArticle: { errorMessage } }) => errorMessage,
+  creatingArticleSuccess: ({ creatingArticle: { success } }) => success,
+
+  deletingArticleLoading: ({ deletingArticle: { loading } }) => loading,
+  deletingArticleLoadingError: ({ deletingArticle: { error } }) => error,
+  deletingArticleErrorMessage: ({ deletingArticle: { errorMessage } }) => errorMessage,
+
+  editingArticleLoading: ({ editingArticle: { loading } }) => loading,
+  editingArticleLoadingError: ({ editingArticle: { error } }) => error,
+  editingArticleErrorMessage: ({ editingArticle: { errorMessage } }) => errorMessage,
+  editingArticleSuccess: ({ editingArticle: { success } }) => success,
 };
 
 export default selectors;

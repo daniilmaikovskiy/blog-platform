@@ -5,13 +5,13 @@ import {
 
 const addTagOnEditArticlePage = () => {
   return (dispatch, getState) => {
-    const { editArticlePageTagsInfo: tagsInfo, editArticlePageMaxTagIndex: maxIndex } = getState();
+    const { tagsInfo, maxTagIndex } = getState().editArticlePage;
     const newTagsInfo = new Map(tagsInfo);
 
-    newTagsInfo.set(maxIndex, '');
+    newTagsInfo.set(maxTagIndex, '');
 
     dispatch(changedTagsInfoOnEditArticlePage(Array.from(newTagsInfo.entries())));
-    dispatch(changedMaxTagIndexOnEditArticlePage(maxIndex + 1));
+    dispatch(changedMaxTagIndexOnEditArticlePage(maxTagIndex + 1));
   };
 };
 

@@ -2,7 +2,7 @@ import { changedTagsInfoOnEditArticlePage } from './action-creators';
 
 const deleteTagOnEditArticlePage = (index) => {
   return (dispatch, getState) => {
-    const { editArticlePageTagsInfo: tagsInfo } = getState();
+    const { tagsInfo } = getState().editArticlePage;
     const newTagsInfo = new Map(tagsInfo);
 
     newTagsInfo.delete(index);

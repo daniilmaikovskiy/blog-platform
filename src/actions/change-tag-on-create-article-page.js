@@ -2,7 +2,7 @@ import { changedTagsInfoOnCreateArticlePage } from './action-creators';
 
 const changeTagOnCreateArticlePage = (index, changedTagsInfoFragment) => {
   return (dispatch, getState) => {
-    const { createArticlePageTagsInfo: tagsInfo } = getState();
+    const { tagsInfo } = getState().createArticlePage;
     const newTagsInfo = new Map(tagsInfo);
 
     newTagsInfo.set(index, changedTagsInfoFragment);

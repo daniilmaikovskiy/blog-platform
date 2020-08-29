@@ -5,13 +5,13 @@ import {
 
 const initEditArticlePage = () => {
   return (dispatch, getState) => {
-    const { currentArticlePage } = getState();
+    const { current } = getState().articlePage;
 
-    if (currentArticlePage === null) {
+    if (current === null) {
       return;
     }
 
-    const { tagList } = getState().currentArticlePage;
+    const { tagList } = current;
 
     const maxTagIndex = tagList.length !== 0 ? tagList.length : 1;
 
